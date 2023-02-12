@@ -16,7 +16,7 @@ import javax.persistence.EntityManager;
 
 @Component
 @RequiredArgsConstructor
-@Profile("!test")
+@Profile("local")
 public class InitDB {
 
     private final InitService initService;
