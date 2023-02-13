@@ -74,7 +74,7 @@ class StoreServiceTest {
         given(storeMapper.storeToStoreDetailInfo(store)).willReturn(storeDetailInfo);
 
         // when
-        StoreDetailInfo storeResponse = storeService.getShopInfoDetail(store.getId());
+        StoreDetailInfo storeResponse = storeService.getStoreInfoDetail(store.getId());
 
         // then
         assertNotNull(storeResponse);

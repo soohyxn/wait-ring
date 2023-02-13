@@ -53,7 +53,7 @@ class StoreControllerTest {
     void getStoreDetailInfo() throws Exception {
         // given
         StoreDetailInfo storeDetailInfo = generateStoreDetailInfo();
-        given(storeService.getShopInfoDetail(any())).willReturn(storeDetailInfo);
+        given(storeService.getStoreInfoDetail(any())).willReturn(storeDetailInfo);
 
         // when
         ResultActions result = mockMvc.perform(get("/stores/1"));
