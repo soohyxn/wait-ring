@@ -1,6 +1,6 @@
 package com.waitring.waitring.controller;
 
-import com.waitring.waitring.dto.StoreDetailInfo;
+import com.waitring.waitring.dto.store.StoreDetailInfo;
 import com.waitring.waitring.service.StoreService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;

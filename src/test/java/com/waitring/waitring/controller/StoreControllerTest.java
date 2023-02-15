@@ -1,7 +1,7 @@
 package com.waitring.waitring.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.waitring.waitring.dto.StoreDetailInfo;
+import com.waitring.waitring.dto.store.StoreDetailInfo;
 import com.waitring.waitring.service.StoreService;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;

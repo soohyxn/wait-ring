@@ -1,6 +1,6 @@
 package com.waitring.waitring.service;
 
-import com.waitring.waitring.dto.StoreDetailInfo;
+import com.waitring.waitring.dto.store.StoreDetailInfo;
 import com.waitring.waitring.entity.Store;
 import com.waitring.waitring.mapper.StoreMapper;
 import com.waitring.waitring.repository.StoreRepository;
