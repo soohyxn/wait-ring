@@ -9,6 +9,7 @@ import org.springframework.validation.FieldError;
 
 import java.util.List;
 
+@Schema(description = "에러 정보")
 @Getter
 @Builder
 @RequiredArgsConstructor
@@ -23,6 +24,7 @@ public class ErrorResponse {
     @JsonInclude(JsonInclude.Include.NON_EMPTY)
     private final List<ValidationError> errors;
 
+    @Schema(description = "필드 에러 정보")
     @Getter
     @Builder
     @RequiredArgsConstructor

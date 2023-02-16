@@ -10,5 +10,6 @@ public interface StoreMapper {
 
     StoreMapper INSTANCE = Mappers.getMapper(StoreMapper.class);
 
+    Store storeDetailInfoToStore(StoreDetailInfo storeDetailInfo);
     StoreDetailInfo storeToStoreDetailInfo(Store store);
 }

@@ -11,8 +11,10 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
+import java.util.List;
 import java.util.Optional;
 
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.BDDMockito.given;
@@ -65,20 +67,37 @@ class StoreServiceTest {
     }
 
     @Test
-    @DisplayName("가게 상세 정보 조회")
+    @DisplayName("가게 등록")
+    void addStore() {
+        // given
+        Store store = generateStore();
+        given(storeRepository.save(any(Store.class))).willReturn(store);
+
+        // when
+        Store addStore = storeService.addStore(generateStoreDetailInfo());
+
+        // then
+        assertNotNull(addStore);
+        assertThat(addStore.getId()).isEqualTo(1L);
+
+        // verify
+        verify(storeRepository).save(any(Store.class));
+    }
+
+    @Test
+    @DisplayName("가게 상세 조회")
     void getStoreDetailInfo() {
         // given
         Store store = generateStore();
         given(storeRepository.findById(store.getId())).willReturn(Optional.of(store));
-        StoreDetailInfo storeDetailInfo = generateStoreDetailInfo();
-        given(storeMapper.storeToStoreDetailInfo(store)).willReturn(storeDetailInfo);
 
         // when
         StoreDetailInfo storeResponse = storeService.getStoreInfoDetail(store.getId());
 
         // then
         assertNotNull(storeResponse);
+
+        // verify
         verify(storeRepository).findById(any(Long.class));
-        verify(storeMapper).storeToStoreDetailInfo(any(Store.class));
     }
 }

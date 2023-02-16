@@ -1,14 +1,18 @@
 package com.waitring.waitring.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.google.gson.Gson;
 import com.waitring.waitring.dto.store.StoreDetailInfo;
+import com.waitring.waitring.entity.Store;
 import com.waitring.waitring.service.StoreService;
+import io.swagger.v3.core.util.Json;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.data.jpa.mapping.JpaMetamodelMappingContext;
+import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.ResultActions;
 
@@ -49,7 +53,24 @@ class StoreControllerTest {
     }
 
     @Test
-    @DisplayName("가게 상세 정보 조회")
+    @DisplayName("가게 등록")
+    void addStore() throws Exception {
+        // given
+        StoreDetailInfo storeDetailInfo = generateStoreDetailInfo();
+
+        // when
+        ResultActions result = mockMvc.perform(post("/stores")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(new Gson().toJson(storeDetailInfo)));
+
+        // then
+        result
+                .andExpect(status().isCreated())
+                .andExpect(jsonPath("$.result").value("가게 등록이 완료되었습니다."));
+    }
+
+    @Test
+    @DisplayName("가게 상세 조회")
     void getStoreDetailInfo() throws Exception {
         // given
         StoreDetailInfo storeDetailInfo = generateStoreDetailInfo();

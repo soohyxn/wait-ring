@@ -7,11 +7,9 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 
-/**
- * 가게 상세 정보
- */
-
+@Schema(description = "가게 상세 정보")
 @Data
 @Builder
 @AllArgsConstructor
@@ -19,32 +17,40 @@ import javax.validation.constraints.NotBlank;
 public class StoreDetailInfo {
 
     @Schema(description = "가게명")
+    @NotBlank
     private String name;
 
     @Schema(description = "가게 동네 위치")
+    @NotBlank
     private String areaDong;
 
     @Schema(description = "가게 상세 주소")
+    @NotBlank
     private String areaDetail;
 
     @Schema(description = "가게 키워드")
     private String keyword;
 
     @Schema(description = "가게 이미지")
+    @NotBlank
     private String imageUrl;
 
     @Schema(description = "영업 오픈시간")
+    @NotBlank
     private String openTime;
 
     @Schema(description = "영업 마감시간")
+    @NotBlank
     private String closeTime;
 
     @Schema(description = "휴무일")
     private String closeDay;
 
     @Schema(description = "웨이팅 가능 여부")
+    @NotNull
     private Boolean waitingFlag;
 
     @Schema(description = "예약 가능 여부")
+    @NotNull
     private Boolean reserveFlag;
 }
