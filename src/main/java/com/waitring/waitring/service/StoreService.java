@@ -23,7 +23,7 @@ public class StoreService {
      */
     public StoreDetailInfo getStoreInfoDetail(Long id) {
         Store store = storeRepository.findById(id)
-                .orElseThrow(() -> new IllegalStateException("가게(id=" + id + ")가존재하지 않습니다."));
+                .orElseThrow(() -> new IllegalStateException("가게(id=" + id + ")가 존재하지 않습니다."));
         return shopMapper.INSTANCE.storeToStoreDetailInfo(store);
     }
 }

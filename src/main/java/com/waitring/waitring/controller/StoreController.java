@@ -1,6 +1,7 @@
 package com.waitring.waitring.controller;
 
 import com.waitring.waitring.dto.store.StoreDetailInfo;
+import com.waitring.waitring.exception.ErrorResponse;
 import com.waitring.waitring.service.StoreService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
@@ -35,6 +36,7 @@ public class StoreController {
     @Operation(summary = "가게 상세 정보 조회", description = "가게 상세 정보 조회합니다.")
     @ApiResponses({
             @ApiResponse(responseCode = "200", description = "OK", content = @Content(schema = @Schema(implementation = StoreDetailInfo.class))),
+            @ApiResponse(responseCode = "404", description = "NOT FOUND", content = @Content(schema = @Schema(implementation = ErrorResponse.class))),
     })
     @Parameters({
             @Parameter(name = "id", description = "가게Id", in = ParameterIn.PATH),
