@@ -3,10 +3,14 @@ package com.waitring.waitring.mapper;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.waitring.waitring.dto.store.StoreDetailInfo;
+import com.waitring.waitring.dto.store.StoreInfo;
 import com.waitring.waitring.entity.Store;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
+import org.mapstruct.Named;
 import org.mapstruct.factory.Mappers;
+
+import java.util.List;
 
 @Mapper(componentModel = "spring")
 public interface StoreMapper {
@@ -14,16 +18,29 @@ public interface StoreMapper {
     StoreMapper INSTANCE = Mappers.getMapper(StoreMapper.class);
     ObjectMapper objectMapper = new ObjectMapper();
 
-    @Mapping(source = "images", target = "image")
-    Store storeDetailInfoToStore(StoreDetailInfo storeDetailInfo);
-    @Mapping(source = "image", target = "images")
+    @Mapping(source = "image", target = "image", qualifiedByName = "imageToImage")
+    StoreInfo storeToStoreInfo(Store store);
+
+    @Mapping(source = "image", target = "images", qualifiedByName = "imageToImages")
     StoreDetailInfo storeToStoreDetailInfo(Store store);
 
-    default String[] mapImage(String s) throws JsonProcessingException {
+    @Mapping(source = "images", target = "image", qualifiedByName = "imagesToImage")
+    Store storeDetailInfoToStore(StoreDetailInfo storeDetailInfo);
+
+    List<StoreInfo> storeListToStoreInfoList(List<Store> stores);
+
+    @Named("imageToImages")
+    default String[] imageToImages(String s) throws JsonProcessingException {
         return objectMapper.readValue(s, String[].class);
     }
 
-    default String mapImages(String[] list) throws JsonProcessingException {
+    @Named("imageToImage")
+    default String imageToImage(String s) throws JsonProcessingException {
+        return objectMapper.readValue(s, String[].class)[0];
+    }
+
+    @Named("imagesToImage")
+    default String imagesToImage(String[] list) throws JsonProcessingException {
         return objectMapper.writeValueAsString(list);
     }
 }

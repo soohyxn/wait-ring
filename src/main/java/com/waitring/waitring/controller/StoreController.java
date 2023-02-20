@@ -1,6 +1,7 @@
 package com.waitring.waitring.controller;
 
 import com.waitring.waitring.dto.store.StoreDetailInfo;
+import com.waitring.waitring.dto.store.StoreInfo;
 import com.waitring.waitring.exception.ErrorResponse;
 import com.waitring.waitring.service.StoreService;
 import io.swagger.v3.oas.annotations.Operation;
@@ -16,6 +17,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+
+import java.util.List;
 
 import static org.springframework.http.HttpStatus.CREATED;
 import static org.springframework.http.HttpStatus.OK;
@@ -55,7 +58,23 @@ public class StoreController {
     })
     @GetMapping("/{id}")
     public ResponseEntity getStoreDetailInfo(@Parameter(description = "가게Id") @PathVariable("id") Long id) {
-        StoreDetailInfo store = storeService.getStoreInfoDetail(id);
+        StoreDetailInfo store = storeService.getStoreDetail(id);
         return ResponseEntity.status(OK).body(store);
+    }
+
+    /**
+     * 검색어로 가게 조회
+     * @param query 검색어
+     * @return 검색된 가게 정보 리스트
+     */
+    @Operation(summary = "검색어로 가게 조회", description = "검색어로 가게를 조회합니다.")
+    @ApiResponses({
+            @ApiResponse(responseCode = "200", description = "조회 성공", content = @Content(schema = @Schema(implementation = StoreDetailInfo.class))),
+            @ApiResponse(responseCode = "404", description = "조회 실패", content = @Content(schema = @Schema(implementation = ErrorResponse.class))),
+    })
+    @GetMapping("/")
+    public ResponseEntity getStoreListByWord(@Parameter(description = "검색어")@RequestParam String query) {
+        List<StoreInfo> stores = storeService.getStoreListByWord(query);
+        return ResponseEntity.status(OK).body(stores);
     }
 }

@@ -95,7 +95,7 @@ class StoreServiceTest {
         given(storeRepository.findById(store.getId())).willReturn(Optional.of(store));
 
         // when
-        StoreDetailInfo storeResponse = storeService.getStoreInfoDetail(store.getId());
+        StoreDetailInfo storeResponse = storeService.getStoreDetail(store.getId());
 
         // then
         assertNotNull(storeResponse);

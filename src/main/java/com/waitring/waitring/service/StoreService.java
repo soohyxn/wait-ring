@@ -1,6 +1,7 @@
 package com.waitring.waitring.service;
 
 import com.waitring.waitring.dto.store.StoreDetailInfo;
+import com.waitring.waitring.dto.store.StoreInfo;
 import com.waitring.waitring.entity.Store;
 import com.waitring.waitring.mapper.StoreMapper;
 import com.waitring.waitring.repository.StoreRepository;
@@ -8,6 +9,8 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.List;
 
 @Slf4j
 @Service
@@ -35,10 +38,23 @@ public class StoreService {
      * @return 가게 상세 정보
      */
     @Transactional(readOnly = true)
-    public StoreDetailInfo getStoreInfoDetail(Long id) {
+    public StoreDetailInfo getStoreDetail(Long id) {
         Store store = storeRepository.findById(id).orElseThrow(() -> new IllegalStateException("가게(id=" + id + ")가 존재하지 않습니다."));
         StoreDetailInfo storeDetailInfo = shopMapper.INSTANCE.storeToStoreDetailInfo(store);
-        log.info("getStoreInfoDetail: " + storeDetailInfo);
+        log.info("getStoreDetail: " + storeDetailInfo);
         return storeDetailInfo;
+    }
+
+    /**
+     * 검색어로 가게 조회
+     * @param word 검색어
+     * @return 검색된 가게 정보 리스트
+     */
+    @Transactional(readOnly = true)
+    public List<StoreInfo> getStoreListByWord(String word) {
+        List<Store> stores = storeRepository.findByNameContainingOrAreaDongContaining(word, word);
+        List<StoreInfo> storeInfos = shopMapper.INSTANCE.storeListToStoreInfoList(stores);
+        log.info("getStoreListByWord: " + storeInfos);
+        return storeInfos;
     }
 }
