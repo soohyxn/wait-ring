@@ -3,9 +3,7 @@ package com.waitring.waitring.controller;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.gson.Gson;
 import com.waitring.waitring.dto.store.StoreDetailInfo;
-import com.waitring.waitring.entity.Store;
 import com.waitring.waitring.service.StoreService;
-import io.swagger.v3.core.util.Json;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -39,11 +37,15 @@ class StoreControllerTest {
      */
     StoreDetailInfo generateStoreDetailInfo() {
         return StoreDetailInfo.builder()
+                .id(1L)
                 .name("고든램지 버거")
                 .areaDong("신천동")
                 .areaDetail("서울 송파구 올림픽로 300 롯데월드몰 B1층")
                 .keyword("프리미엄, 양식, 버거")
-                .imageUrl("https://image-cdn.hypb.st/https%3A%2F%2Fkr.hypebeast.com%2Ffiles%2F2021%2F01%2FHypebeast-check-gordon-ramsay-burger-korean-restaurant-info-22.jpg?w=1600&cbr=1&q=90&fit=max")
+                .images(new String[]{
+                        "https://image-cdn.hypb.st/https%3A%2F%2Fkr.hypebeast.com%2Ffiles%2F2021%2F01%2FHypebeast-check-gordon-ramsay-burger-korean-restaurant-info-22.jpg?w=1600&cbr=1&q=90&fit=max",
+                        "https://image-cdn.hypb.st/https%3A%2F%2Fkr.hypebeast.com%2Ffiles%2F2021%2F11%2FGordon-ramsay-burger-korean-open-date-official-info-02.jpg?q=75&w=800&cbr=1&fit=max",
+                        "https://image-cdn.hypb.st/https%3A%2F%2Fkr.hypebeast.com%2Ffiles%2F2021%2F01%2FHypebeast-check-gordon-ramsay-burger-korean-restaurant-info-23.jpg?w=1600&cbr=1&q=90&fit=max"})
                 .openTime("10:00")
                 .closeTime("20:30")
                 .closeDay("매주 셋째주 월요일")
@@ -82,6 +84,7 @@ class StoreControllerTest {
         // then
         result
                 .andExpect(status().isOk())
+                .andExpect(jsonPath("$.id").value(1L))
                 .andExpect(jsonPath("$.name").value("고든램지 버거"))
                 .andExpect(jsonPath("$.areaDong").value("신천동"))
                 .andExpect(jsonPath("$.areaDetail").value("서울 송파구 올림픽로 300 롯데월드몰 B1층"))

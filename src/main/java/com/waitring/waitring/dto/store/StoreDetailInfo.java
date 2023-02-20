@@ -8,6 +8,7 @@ import lombok.NoArgsConstructor;
 
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
+import java.util.List;
 
 @Schema(description = "가게 상세 정보")
 @Data
@@ -15,6 +16,9 @@ import javax.validation.constraints.NotNull;
 @AllArgsConstructor
 @NoArgsConstructor
 public class StoreDetailInfo {
+
+    @Schema(description = "가게Id")
+    private Long id;
 
     @Schema(description = "가게명")
     @NotBlank
@@ -32,8 +36,8 @@ public class StoreDetailInfo {
     private String keyword;
 
     @Schema(description = "가게 이미지")
-    @NotBlank
-    private String imageUrl;
+    @NotNull
+    private String[] images;
 
     @Schema(description = "영업 오픈시간")
     @NotBlank

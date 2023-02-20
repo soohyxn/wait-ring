@@ -2,9 +2,11 @@ package com.waitring.waitring.entity;
 
 import lombok.*;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import java.util.List;
 
 /**
  * 가게 엔티티
@@ -25,7 +27,8 @@ public class Store extends BaseEntity {
     private String areaDong; // 가게 동네 위치
     private String areaDetail; // 가게 상세 주소
     private String keyword; // 가게 키워드
-    private String imageUrl; // 가게 이미지
+    @Column(columnDefinition = "TEXT")
+    private String image; // 가게 이미지
     private String openTime; // 영업 오픈시간
     private String closeTime; // 영업 마감시간
     private String closeDay; // 휴무일
