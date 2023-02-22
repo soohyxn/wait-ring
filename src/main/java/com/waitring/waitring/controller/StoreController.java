@@ -40,7 +40,7 @@ public class StoreController {
             @ApiResponse(responseCode = "201", description = "등록 성공", content = @Content(schema = @Schema(implementation = StringResponse.class))),
             @ApiResponse(responseCode = "400", description = "유효성 검증 실패", content = @Content(schema = @Schema(implementation = ErrorResponse.class))),
     })
-    @PostMapping(produces = MediaType.APPLICATION_JSON_VALUE)
+    @PostMapping
     public ResponseEntity addStore(@Valid @RequestBody StoreDetailInfo storeDetailInfo) {
         storeService.addStore(storeDetailInfo);
         return ResponseEntity.status(CREATED).body(new StringResponse("가게 등록이 완료되었습니다."));
@@ -70,11 +70,10 @@ public class StoreController {
     @Operation(summary = "검색어로 가게 조회", description = "검색어로 가게를 조회합니다.")
     @ApiResponses({
             @ApiResponse(responseCode = "200", description = "조회 성공", content = @Content(schema = @Schema(implementation = StoreDetailInfo.class))),
-            @ApiResponse(responseCode = "404", description = "조회 실패", content = @Content(schema = @Schema(implementation = ErrorResponse.class))),
     })
-    @GetMapping("/")
-    public ResponseEntity getStoreListByWord(@Parameter(description = "검색어")@RequestParam String query) {
-        List<StoreInfo> stores = storeService.getStoreListByWord(query);
-        return ResponseEntity.status(OK).body(stores);
+    @GetMapping
+    public ResponseEntity getStoreListByWord(@Parameter(description = "검색어") @RequestParam String query) {
+        List<StoreInfo> storeList = storeService.getStoreListByWord(query);
+        return ResponseEntity.status(OK).body(storeList);
     }
 }

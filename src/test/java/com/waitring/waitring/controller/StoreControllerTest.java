@@ -3,6 +3,7 @@ package com.waitring.waitring.controller;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.gson.Gson;
 import com.waitring.waitring.dto.store.StoreDetailInfo;
+import com.waitring.waitring.dto.store.StoreInfo;
 import com.waitring.waitring.service.StoreService;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -14,7 +15,9 @@ import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.ResultActions;
 
-import static org.mockito.ArgumentMatchers.any;
+import java.util.Collections;
+import java.util.List;
+
 import static org.mockito.BDDMockito.given;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
@@ -54,6 +57,18 @@ class StoreControllerTest {
                 .build();
     }
 
+    StoreInfo generateStoreInfo() {
+        return StoreInfo.builder()
+                .id(1L)
+                .name("고든램지 버거")
+                .areaDong("신천동")
+                .keyword("프리미엄, 양식, 버거")
+                .image("https://image-cdn.hypb.st/https%3A%2F%2Fkr.hypebeast.com%2Ffiles%2F2021%2F01%2FHypebeast-check-gordon-ramsay-burger-korean-restaurant-info-22.jpg?w=1600&cbr=1&q=90&fit=max")
+                .waitingFlag(true)
+                .reserveFlag(false)
+                .build();
+    }
+
     @Test
     @DisplayName("가게 등록")
     void addStore() throws Exception {
@@ -76,7 +91,7 @@ class StoreControllerTest {
     void getStoreDetailInfo() throws Exception {
         // given
         StoreDetailInfo storeDetailInfo = generateStoreDetailInfo();
-        given(storeService.getStoreDetail(any())).willReturn(storeDetailInfo);
+        given(storeService.getStoreDetail(1L)).willReturn(storeDetailInfo);
 
         // when
         ResultActions result = mockMvc.perform(get("/stores/1"));
@@ -92,5 +107,25 @@ class StoreControllerTest {
                 .andExpect(jsonPath("$.openTime").value("10:00"))
                 .andExpect(jsonPath("$.closeTime").value("20:30"))
                 .andExpect(jsonPath("$.closeDay").value("매주 셋째주 월요일"));
+    }
+
+    @Test
+    @DisplayName("검색어로 가게 조회")
+    void getStoreListByWord() throws Exception {
+        // given
+        List<StoreInfo> storeInfoList = Collections.singletonList(generateStoreInfo());
+        given(storeService.getStoreListByWord("버거")).willReturn(storeInfoList);
+
+        // when
+        ResultActions result = mockMvc.perform(get("/stores")
+                .param("query", "버거"));
+
+        // then
+        result
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$[0].id").value(1L))
+                .andExpect(jsonPath("$[0].name").value("고든램지 버거"))
+                .andExpect(jsonPath("$[0].areaDong").value("신천동"))
+                .andExpect(jsonPath("$[0].keyword").value("프리미엄, 양식, 버거"));
     }
 }

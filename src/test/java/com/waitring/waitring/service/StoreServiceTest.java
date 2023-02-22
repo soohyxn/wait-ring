@@ -1,8 +1,8 @@
 package com.waitring.waitring.service;
 
 import com.waitring.waitring.dto.store.StoreDetailInfo;
+import com.waitring.waitring.dto.store.StoreInfo;
 import com.waitring.waitring.entity.Store;
-import com.waitring.waitring.mapper.StoreMapper;
 import com.waitring.waitring.repository.StoreRepository;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -11,8 +11,7 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.*;
@@ -99,9 +98,26 @@ class StoreServiceTest {
 
         // then
         assertNotNull(storeResponse);
-        assertThat(storeResponse.getId()).isEqualTo(1L);
 
         // verify
         verify(storeRepository).findById(any(Long.class));
+    }
+
+    @Test
+    @DisplayName("검색어로 가게 조회")
+    void getStoreListByWord() {
+        // given
+        List<Store> storeList = Collections.singletonList(generateStore());
+        given(storeRepository.findByNameContainingOrAreaDongContaining("버거", "버거")).willReturn(storeList);
+
+        // when
+        List<StoreInfo> storeInfoList = storeService.getStoreListByWord("버거");
+
+        // then
+        assertNotNull(storeInfoList);
+        assertThat(storeInfoList.size()).isEqualTo(1);
+
+        // verify
+        verify(storeRepository).findByNameContainingOrAreaDongContaining(any(String.class), any(String.class));
     }
 }

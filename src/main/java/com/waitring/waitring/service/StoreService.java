@@ -52,9 +52,9 @@ public class StoreService {
      */
     @Transactional(readOnly = true)
     public List<StoreInfo> getStoreListByWord(String word) {
-        List<Store> stores = storeRepository.findByNameContainingOrAreaDongContaining(word, word);
-        List<StoreInfo> storeInfos = shopMapper.INSTANCE.storeListToStoreInfoList(stores);
-        log.info("getStoreListByWord: " + storeInfos);
-        return storeInfos;
+        List<Store> storeList = storeRepository.findByNameContainingOrAreaDongContaining(word, word);
+        List<StoreInfo> storeInfoList = shopMapper.INSTANCE.storeListToStoreInfoList(storeList);
+        log.info("getStoreListByWord: " + storeInfoList);
+        return storeInfoList;
     }
 }
