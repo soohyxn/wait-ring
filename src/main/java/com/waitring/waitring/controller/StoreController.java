@@ -69,7 +69,7 @@ public class StoreController {
      */
     @Operation(summary = "검색어로 가게 조회", description = "검색어로 가게를 조회합니다.")
     @ApiResponses({
-            @ApiResponse(responseCode = "200", description = "조회 성공", content = @Content(schema = @Schema(implementation = StoreDetailInfo.class))),
+            @ApiResponse(responseCode = "200", description = "조회 성공", content = @Content(schema = @Schema(implementation = StoreInfo.class))),
     })
     @GetMapping
     public ResponseEntity getStoreListByWord(@Parameter(description = "검색어") @RequestParam String query) {
