@@ -3,6 +3,7 @@ package com.waitring.waitring.service;
 import com.waitring.waitring.dto.store.StoreDetailInfo;
 import com.waitring.waitring.dto.store.StoreInfo;
 import com.waitring.waitring.dto.store.StoreInput;
+import com.waitring.waitring.entity.Menu;
 import com.waitring.waitring.entity.Store;
 import com.waitring.waitring.repository.StoreRepository;
 import org.junit.jupiter.api.DisplayName;
@@ -30,7 +31,7 @@ class StoreServiceTest {
     private StoreService storeService;
 
     /**
-     * 가게 테스트 데이터 생성
+     * 테스트 데이터 생성
      */
     Store generateStore() {
         return Store.builder()
@@ -47,6 +48,17 @@ class StoreServiceTest {
                 .closeDay("매주 셋째주 월요일")
                 .waitingFlag(true)
                 .reserveFlag(false)
+                .menus(new ArrayList<>(Collections.singleton(generateMenu())))
+                .build();
+    }
+
+    Menu generateMenu() {
+        return Menu.builder()
+                .id(2L)
+                .name("헬스 키친 버거")
+                .price(31000)
+                .detail("모차렐라 치즈, 로스티드 할라피뇨&토마토, 아보카도, 할리피뇨 아이뮬리")
+                .image("https://image-cdn.hypb.st/https%3A%2F%2Fkr.hypebeast.com%2Ffiles%2F2021%2F11%2FGordon-ramsay-burger-korean-open-date-official-info-02.jpg?q=75&w=800&cbr=1&fit=max")
                 .build();
     }
 
@@ -91,16 +103,17 @@ class StoreServiceTest {
     void getStoreDetailInfo() {
         // given
         Store store = generateStore();
-        given(storeRepository.findById(store.getId())).willReturn(Optional.of(store));
+        given(storeRepository.getStoreById(store.getId())).willReturn(store);
 
         // when
-        StoreDetailInfo storeResponse = storeService.getStoreDetail(store.getId());
+        StoreDetailInfo storeDetailInfo = storeService.getStoreDetail(store.getId());
 
         // then
-        assertNotNull(storeResponse);
+        assertNotNull(storeDetailInfo);
+        assertThat(storeDetailInfo.getMenus()).isNotEmpty();
 
         // verify
-        verify(storeRepository).findById(any(Long.class));
+        verify(storeRepository).getStoreById(any(Long.class));
     }
 
     @Test

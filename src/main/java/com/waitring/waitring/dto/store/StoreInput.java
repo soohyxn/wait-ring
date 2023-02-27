@@ -32,7 +32,6 @@ public class StoreInput {
     private String keyword;
 
     @Schema(description = "가게 이미지")
-    @NotNull
     private String[] images;
 
     @Schema(description = "영업 오픈시간")

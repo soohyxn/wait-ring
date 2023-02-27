@@ -32,7 +32,6 @@ public class StoreInfo {
     private String keyword;
 
     @Schema(description = "가게 이미지")
-    @NotNull
     private String image;
 
     @Schema(description = "웨이팅 가능 여부")

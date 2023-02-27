@@ -4,6 +4,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.gson.Gson;
 import com.waitring.waitring.dto.store.StoreDetailInfo;
 import com.waitring.waitring.dto.store.StoreInfo;
+import com.waitring.waitring.entity.Menu;
 import com.waitring.waitring.service.StoreService;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -15,6 +16,7 @@ import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.ResultActions;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
@@ -36,7 +38,7 @@ class StoreControllerTest {
     private ObjectMapper objectMapper;
 
     /**
-     * 가게 테스트 데이터 생성
+     * 테스트 데이터 생성
      */
     StoreDetailInfo generateStoreDetailInfo() {
         return StoreDetailInfo.builder()
@@ -54,6 +56,7 @@ class StoreControllerTest {
                 .closeDay("매주 셋째주 월요일")
                 .waitingFlag(true)
                 .reserveFlag(false)
+                .menus(new ArrayList<>(Collections.singleton(generateMenu())))
                 .build();
     }
 
@@ -66,6 +69,16 @@ class StoreControllerTest {
                 .image("https://image-cdn.hypb.st/https%3A%2F%2Fkr.hypebeast.com%2Ffiles%2F2021%2F01%2FHypebeast-check-gordon-ramsay-burger-korean-restaurant-info-22.jpg?w=1600&cbr=1&q=90&fit=max")
                 .waitingFlag(true)
                 .reserveFlag(false)
+                .build();
+    }
+
+    Menu generateMenu() {
+        return Menu.builder()
+                .id(2L)
+                .name("헬스 키친 버거")
+                .price(31000)
+                .detail("모차렐라 치즈, 로스티드 할라피뇨&토마토, 아보카도, 할리피뇨 아이뮬리")
+                .image("https://image-cdn.hypb.st/https%3A%2F%2Fkr.hypebeast.com%2Ffiles%2F2021%2F11%2FGordon-ramsay-burger-korean-open-date-official-info-02.jpg?q=75&w=800&cbr=1&fit=max")
                 .build();
     }
 
@@ -104,9 +117,13 @@ class StoreControllerTest {
                 .andExpect(jsonPath("$.areaDong").value("신천동"))
                 .andExpect(jsonPath("$.areaDetail").value("서울 송파구 올림픽로 300 롯데월드몰 B1층"))
                 .andExpect(jsonPath("$.keyword").value("프리미엄, 양식, 버거"))
+                .andExpect(jsonPath("$.images.length()").value(3))
                 .andExpect(jsonPath("$.openTime").value("10:00"))
                 .andExpect(jsonPath("$.closeTime").value("20:30"))
-                .andExpect(jsonPath("$.closeDay").value("매주 셋째주 월요일"));
+                .andExpect(jsonPath("$.closeDay").value("매주 셋째주 월요일"))
+                .andExpect(jsonPath("$.waitingFlag").value(true))
+                .andExpect(jsonPath("$.reserveFlag").value(false))
+                .andExpect(jsonPath("$.menus.length()").value(1));
     }
 
     @Test
@@ -126,6 +143,9 @@ class StoreControllerTest {
                 .andExpect(jsonPath("$[0].id").value(1L))
                 .andExpect(jsonPath("$[0].name").value("고든램지 버거"))
                 .andExpect(jsonPath("$[0].areaDong").value("신천동"))
-                .andExpect(jsonPath("$[0].keyword").value("프리미엄, 양식, 버거"));
+                .andExpect(jsonPath("$[0].keyword").value("프리미엄, 양식, 버거"))
+                .andExpect(jsonPath("$[0].image").isNotEmpty())
+                .andExpect(jsonPath("$[0].waitingFlag").value(true))
+                .andExpect(jsonPath("$[0].reserveFlag").value(false));
     }
 }

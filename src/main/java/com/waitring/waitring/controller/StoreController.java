@@ -57,7 +57,7 @@ public class StoreController {
             @ApiResponse(responseCode = "404", description = "조회 실패", content = @Content(schema = @Schema(implementation = ErrorResponse.class))),
     })
     @GetMapping("/{id}")
-    public ResponseEntity getStoreDetailInfo(@Parameter(description = "가게Id") @PathVariable("id") Long id) {
+    public ResponseEntity getStoreDetail(@Parameter(description = "가게Id") @PathVariable("id") Long id) {
         StoreDetailInfo store = storeService.getStoreDetail(id);
         return ResponseEntity.status(OK).body(store);
     }

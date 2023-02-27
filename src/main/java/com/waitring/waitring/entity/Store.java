@@ -2,10 +2,8 @@ package com.waitring.waitring.entity;
 
 import lombok.*;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -36,4 +34,7 @@ public class Store extends BaseEntity {
     private Boolean reserveFlag; // 예약 가능 여부
     private String locationLat; // 가게 위도 정보
     private String locationLng; // 가게 경도 정보
+
+    @OneToMany(mappedBy = "store")
+    private List<Menu> menus = new ArrayList<>(); // 가게 메뉴 리스트
 }

@@ -1,5 +1,6 @@
 package com.waitring.waitring.dto.store;
 
+import com.waitring.waitring.entity.Menu;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -8,6 +9,7 @@ import lombok.NoArgsConstructor;
 
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
+import java.util.ArrayList;
 import java.util.List;
 
 @Schema(description = "가게 상세 정보")
@@ -37,7 +39,6 @@ public class StoreDetailInfo {
     private String keyword;
 
     @Schema(description = "가게 이미지")
-    @NotNull
     private String[] images;
 
     @Schema(description = "영업 오픈시간")
@@ -58,4 +59,7 @@ public class StoreDetailInfo {
     @Schema(description = "예약 가능 여부")
     @NotNull
     private Boolean reserveFlag;
+
+    @Schema(description = "가게 메뉴 리스트")
+    private List<Menu> menus;
 }
