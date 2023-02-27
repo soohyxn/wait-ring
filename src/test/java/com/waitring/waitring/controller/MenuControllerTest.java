@@ -2,7 +2,7 @@ package com.waitring.waitring.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.gson.Gson;
-import com.waitring.waitring.dto.menu.MenuInput;
+import com.waitring.waitring.dto.menu.MenuInfo;
 import com.waitring.waitring.service.MenuService;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -34,8 +34,8 @@ class MenuControllerTest {
     /**
      * 테스트 데이터 생성
      */
-    MenuInput generateMenuInput() {
-        return MenuInput.builder()
+    MenuInfo generateMenuInput() {
+        return MenuInfo.builder()
                 .name("헬스 키친 버거")
                 .price(31000)
                 .detail("모차렐라 치즈, 로스티드 할라피뇨&토마토, 아보카도, 할리피뇨 아이뮬리")
@@ -47,7 +47,7 @@ class MenuControllerTest {
     @DisplayName("가게 등록")
     void addStore() throws Exception {
         // given
-        MenuInput menuInput = generateMenuInput();
+        MenuInfo menuInput = generateMenuInput();
 
         // when
         ResultActions result = mockMvc.perform(post("/menus/1")

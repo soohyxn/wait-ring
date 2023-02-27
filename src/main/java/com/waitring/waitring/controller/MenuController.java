@@ -1,6 +1,6 @@
 package com.waitring.waitring.controller;
 
-import com.waitring.waitring.dto.menu.MenuInput;
+import com.waitring.waitring.dto.menu.MenuInfo;
 import com.waitring.waitring.exception.ErrorResponse;
 import com.waitring.waitring.service.MenuService;
 import io.swagger.v3.oas.annotations.Operation;
@@ -39,7 +39,7 @@ public class MenuController {
     })
     @PostMapping("/{id}")
     public ResponseEntity addStore(@Parameter(description = "가게Id") @PathVariable("id") Long id,
-                                   @Valid @RequestBody MenuInput menuInput) {
+                                   @Valid @RequestBody MenuInfo menuInput) {
         menuService.addMenu(id, menuInput);
         return ResponseEntity.status(CREATED).body(new StringResponse("메뉴 등록이 완료되었습니다."));
     }

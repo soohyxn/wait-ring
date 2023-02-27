@@ -14,8 +14,8 @@ import org.springframework.stereotype.Component;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2023-02-26T21:16:15+0900",
-    comments = "version: 1.4.2.Final, compiler: javac, environment: Java 1.8.0_281 (Oracle Corporation)"
+    date = "2023-02-27T09:44:47+0900",
+    comments = "version: 1.4.2.Final, compiler: javac, environment: Java 1.8.0_202 (Oracle Corporation)"
 )
 @Component
 public class StoreMapperImpl implements StoreMapper {
@@ -86,7 +86,6 @@ public class StoreMapperImpl implements StoreMapper {
         catch ( JsonProcessingException e ) {
             throw new RuntimeException( e );
         }
-        store.id( storeDetailInfo.getId() );
         store.name( storeDetailInfo.getName() );
         store.areaDong( storeDetailInfo.getAreaDong() );
         store.areaDetail( storeDetailInfo.getAreaDetail() );

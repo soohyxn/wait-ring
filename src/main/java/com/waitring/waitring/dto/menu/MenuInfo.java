@@ -15,13 +15,10 @@ import javax.validation.constraints.NotNull;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class MenuInput {
+public class MenuInfo {
 
     @Schema(description = "메뉴Id")
     private Long id;
-
-    @Schema(description = "메뉴가 속한 가게")
-    private Store store;
 
     @Schema(description = "메뉴명")
     @NotBlank
