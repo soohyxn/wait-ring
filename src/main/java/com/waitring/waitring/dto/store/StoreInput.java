@@ -9,16 +9,12 @@ import lombok.NoArgsConstructor;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 
-@Schema(description = "가게 정보")
+@Schema(description = "입력받은 가게 정보")
 @Data
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class StoreInfo {
-
-    @Schema(description = "가게Id")
-    @NotNull
-    private Long id;
+public class StoreInput {
 
     @Schema(description = "가게명")
     @NotBlank
@@ -28,12 +24,27 @@ public class StoreInfo {
     @NotBlank
     private String areaDong;
 
+    @Schema(description = "가게 상세 주소")
+    @NotBlank
+    private String areaDetail;
+
     @Schema(description = "가게 키워드")
     private String keyword;
 
     @Schema(description = "가게 이미지")
     @NotNull
-    private String image;
+    private String[] images;
+
+    @Schema(description = "영업 오픈시간")
+    @NotBlank
+    private String openTime;
+
+    @Schema(description = "영업 마감시간")
+    @NotBlank
+    private String closeTime;
+
+    @Schema(description = "휴무일")
+    private String closeDay;
 
     @Schema(description = "웨이팅 가능 여부")
     @NotNull

@@ -2,6 +2,7 @@ package com.waitring.waitring.service;
 
 import com.waitring.waitring.dto.store.StoreDetailInfo;
 import com.waitring.waitring.dto.store.StoreInfo;
+import com.waitring.waitring.dto.store.StoreInput;
 import com.waitring.waitring.entity.Store;
 import com.waitring.waitring.repository.StoreRepository;
 import org.junit.jupiter.api.DisplayName;
@@ -49,9 +50,8 @@ class StoreServiceTest {
                 .build();
     }
 
-    StoreDetailInfo generateStoreDetailInfo() {
-        return StoreDetailInfo.builder()
-                .id(1L)
+    StoreInput generateStoreInput() {
+        return StoreInput.builder()
                 .name("고든램지 버거")
                 .areaDong("신천동")
                 .areaDetail("서울 송파구 올림픽로 300 롯데월드몰 B1층")
@@ -76,7 +76,7 @@ class StoreServiceTest {
         given(storeRepository.save(any(Store.class))).willReturn(store);
 
         // when
-        Store addStore = storeService.addStore(generateStoreDetailInfo());
+        Store addStore = storeService.addStore(generateStoreInput());
 
         // then
         assertNotNull(addStore);

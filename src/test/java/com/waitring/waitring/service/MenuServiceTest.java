@@ -1,6 +1,7 @@
 package com.waitring.waitring.service;
 
 import com.waitring.waitring.dto.menu.MenuInfo;
+import com.waitring.waitring.dto.menu.MenuInput;
 import com.waitring.waitring.entity.Menu;
 import com.waitring.waitring.entity.Store;
 import com.waitring.waitring.repository.MenuRepository;
@@ -64,8 +65,8 @@ class MenuServiceTest {
                 .build();
     }
 
-    MenuInfo generateMenuInput() {
-        return MenuInfo.builder()
+    MenuInput generateMenuInput() {
+        return MenuInput.builder()
                 .name("헬스 키친 버거")
                 .price(31000)
                 .detail("모차렐라 치즈, 로스티드 할라피뇨&토마토, 아보카도, 할리피뇨 아이뮬리")

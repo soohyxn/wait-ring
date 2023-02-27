@@ -4,6 +4,7 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.waitring.waitring.dto.store.StoreDetailInfo;
 import com.waitring.waitring.dto.store.StoreInfo;
+import com.waitring.waitring.dto.store.StoreInput;
 import com.waitring.waitring.entity.Store;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
@@ -26,7 +27,7 @@ public interface StoreMapper {
 
     @Mapping(target = "id", ignore = true)
     @Mapping(source = "images", target = "image", qualifiedByName = "imagesToImage")
-    Store storeDetailInfoToStore(StoreDetailInfo storeDetailInfo);
+    Store storeInputToStore(StoreInput storeInput);
 
     List<StoreInfo> storeListToStoreInfoList(List<Store> stores);
 

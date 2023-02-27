@@ -18,6 +18,7 @@ import java.util.List;
 public class StoreDetailInfo {
 
     @Schema(description = "가게Id")
+    @NotNull
     private Long id;
 
     @Schema(description = "가게명")

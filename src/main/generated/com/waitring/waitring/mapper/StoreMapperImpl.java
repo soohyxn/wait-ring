@@ -5,6 +5,7 @@ import com.waitring.waitring.dto.store.StoreDetailInfo;
 import com.waitring.waitring.dto.store.StoreDetailInfo.StoreDetailInfoBuilder;
 import com.waitring.waitring.dto.store.StoreInfo;
 import com.waitring.waitring.dto.store.StoreInfo.StoreInfoBuilder;
+import com.waitring.waitring.dto.store.StoreInput;
 import com.waitring.waitring.entity.Store;
 import com.waitring.waitring.entity.Store.StoreBuilder;
 import java.util.ArrayList;
@@ -14,7 +15,7 @@ import org.springframework.stereotype.Component;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2023-02-27T09:44:47+0900",
+    date = "2023-02-27T10:20:02+0900",
     comments = "version: 1.4.2.Final, compiler: javac, environment: Java 1.8.0_202 (Oracle Corporation)"
 )
 @Component
@@ -73,28 +74,28 @@ public class StoreMapperImpl implements StoreMapper {
     }
 
     @Override
-    public Store storeDetailInfoToStore(StoreDetailInfo storeDetailInfo) {
-        if ( storeDetailInfo == null ) {
+    public Store storeInputToStore(StoreInput storeInput) {
+        if ( storeInput == null ) {
             return null;
         }
 
         StoreBuilder store = Store.builder();
 
         try {
-            store.image( imagesToImage( storeDetailInfo.getImages() ) );
+            store.image( imagesToImage( storeInput.getImages() ) );
         }
         catch ( JsonProcessingException e ) {
             throw new RuntimeException( e );
         }
-        store.name( storeDetailInfo.getName() );
-        store.areaDong( storeDetailInfo.getAreaDong() );
-        store.areaDetail( storeDetailInfo.getAreaDetail() );
-        store.keyword( storeDetailInfo.getKeyword() );
-        store.openTime( storeDetailInfo.getOpenTime() );
-        store.closeTime( storeDetailInfo.getCloseTime() );
-        store.closeDay( storeDetailInfo.getCloseDay() );
-        store.waitingFlag( storeDetailInfo.getWaitingFlag() );
-        store.reserveFlag( storeDetailInfo.getReserveFlag() );
+        store.name( storeInput.getName() );
+        store.areaDong( storeInput.getAreaDong() );
+        store.areaDetail( storeInput.getAreaDetail() );
+        store.keyword( storeInput.getKeyword() );
+        store.openTime( storeInput.getOpenTime() );
+        store.closeTime( storeInput.getCloseTime() );
+        store.closeDay( storeInput.getCloseDay() );
+        store.waitingFlag( storeInput.getWaitingFlag() );
+        store.reserveFlag( storeInput.getReserveFlag() );
 
         return store.build();
     }

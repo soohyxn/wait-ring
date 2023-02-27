@@ -1,6 +1,5 @@
 package com.waitring.waitring.dto.menu;
 
-import com.waitring.waitring.entity.Store;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -10,16 +9,12 @@ import lombok.NoArgsConstructor;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 
-@Schema(description = "메뉴 정보")
+@Schema(description = "입력받은 메뉴 정보")
 @Data
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class MenuInfo {
-
-    @Schema(description = "메뉴Id")
-    @NotNull
-    private Long id;
+public class MenuInput {
 
     @Schema(description = "메뉴명")
     @NotBlank

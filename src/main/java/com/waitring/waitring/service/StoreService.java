@@ -2,6 +2,7 @@ package com.waitring.waitring.service;
 
 import com.waitring.waitring.dto.store.StoreDetailInfo;
 import com.waitring.waitring.dto.store.StoreInfo;
+import com.waitring.waitring.dto.store.StoreInput;
 import com.waitring.waitring.entity.Store;
 import com.waitring.waitring.mapper.StoreMapper;
 import com.waitring.waitring.repository.StoreRepository;
@@ -23,10 +24,10 @@ public class StoreService {
 
     /**
      * 가게 등록
-     * @param storeDetailInfo 입력받은 가게 정보
+     * @param storeInput 입력받은 가게 정보
      */
-    public Store addStore(StoreDetailInfo storeDetailInfo) {
-        Store store = shopMapper.INSTANCE.storeDetailInfoToStore(storeDetailInfo);
+    public Store addStore(StoreInput storeInput) {
+        Store store = shopMapper.INSTANCE.storeInputToStore(storeInput);
         Store addStore = storeRepository.save(store);
         log.info("addStore: " + addStore);
         return addStore;

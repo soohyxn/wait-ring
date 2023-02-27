@@ -2,6 +2,7 @@ package com.waitring.waitring.mapper;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.waitring.waitring.dto.menu.MenuInfo;
+import com.waitring.waitring.dto.menu.MenuInput;
 import com.waitring.waitring.entity.Menu;
 import com.waitring.waitring.entity.Store;
 import org.mapstruct.Mapper;
@@ -20,5 +21,5 @@ public interface MenuMapper {
     @Mapping(source = "menuInput.detail", target = "detail")
     @Mapping(source = "menuInput.image", target = "image")
     @Mapping(source = "store", target = "store")
-    Menu menuInputToMenu(MenuInfo menuInput, Store store);
+    Menu menuInputToMenu(MenuInput menuInput, Store store);
 }

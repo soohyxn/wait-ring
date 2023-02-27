@@ -2,6 +2,7 @@ package com.waitring.waitring.controller;
 
 import com.waitring.waitring.dto.store.StoreDetailInfo;
 import com.waitring.waitring.dto.store.StoreInfo;
+import com.waitring.waitring.dto.store.StoreInput;
 import com.waitring.waitring.exception.ErrorResponse;
 import com.waitring.waitring.service.StoreService;
 import io.swagger.v3.oas.annotations.Operation;
@@ -32,7 +33,7 @@ public class StoreController {
 
     /**
      * 가게 등록
-     * @param storeDetailInfo 입력받은 가게 정보
+     * @param storeInput 입력받은 가게 정보
      */
     @Operation(summary = "가게 등록", description = "가게를 등록합니다.")
     @ApiResponses({
@@ -40,8 +41,8 @@ public class StoreController {
             @ApiResponse(responseCode = "400", description = "유효성 검증 실패", content = @Content(schema = @Schema(implementation = ErrorResponse.class))),
     })
     @PostMapping
-    public ResponseEntity addStore(@Valid @RequestBody StoreDetailInfo storeDetailInfo) {
-        storeService.addStore(storeDetailInfo);
+    public ResponseEntity addStore(@Valid @RequestBody StoreInput storeInput) {
+        storeService.addStore(storeInput);
         return ResponseEntity.status(CREATED).body(new StringResponse("가게 등록이 완료되었습니다."));
     }
 
