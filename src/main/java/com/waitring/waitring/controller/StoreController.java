@@ -26,7 +26,7 @@ import static org.springframework.http.HttpStatus.OK;
 @Tag(name = "가게 API")
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/stores")
+@RequestMapping("/store")
 public class StoreController {
 
     private final StoreService storeService;

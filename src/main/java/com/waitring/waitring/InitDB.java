@@ -2,6 +2,7 @@ package com.waitring.waitring;
 
 import com.waitring.waitring.entity.Menu;
 import com.waitring.waitring.entity.Store;
+import com.waitring.waitring.entity.User;
 import lombok.RequiredArgsConstructor;
 import org.hibernate.usertype.UserType;
 import org.springframework.context.annotation.Profile;
@@ -10,6 +11,8 @@ import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.PostConstruct;
 import javax.persistence.EntityManager;
+import java.time.LocalDate;
+import java.util.Date;
 
 /**
  * 테스트 데이터
@@ -37,7 +40,19 @@ public class InitDB {
         @Transactional
         public void dbInit() {
 
-            // 가게 테스트 데이터
+            /**
+             * 회원 테스트 데이터
+             */
+            User user1 = User.builder()
+                    .email("user1@waitring.com")
+                    .password("1234")
+                    .nickname("유저1")
+                    .point(1234)
+                    .build();
+
+            /**
+             * 가게 테스트 데이터
+             */
             Store store1 = Store.builder()
                     .name("고든램지 버거")
                     .areaDong("신천동")
@@ -118,7 +133,9 @@ public class InitDB {
                     .build();
             em.persist(store5);
 
-            // 메뉴 테스트 데이터
+            /**
+             * 메뉴 테스트 데이터
+             */
             Menu menu1 = Menu.builder()
                     .store(store1)
                     .name("헬스 키친 버거")

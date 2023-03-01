@@ -35,6 +35,6 @@ public class Store extends BaseEntity {
     private String locationLat; // 가게 위도 정보
     private String locationLng; // 가게 경도 정보
 
-    @OneToMany(mappedBy = "store")
+    @OneToMany(mappedBy = "store", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Menu> menus = new ArrayList<>(); // 가게 메뉴 리스트
 }

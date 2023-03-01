@@ -41,6 +41,7 @@ public class StoreService {
     @Transactional(readOnly = true)
     public StoreDetailInfo getStoreDetail(Long id) {
         Store store = storeRepository.getStoreById(id);
+        if(store == null) throw new IllegalStateException("가게(id=" + id + ")가 존재하지 않습니다.");
         StoreDetailInfo storeDetailInfo = shopMapper.INSTANCE.storeToStoreDetailInfo(store);
         log.info("getStoreDetail: " + storeDetailInfo);
         return storeDetailInfo;

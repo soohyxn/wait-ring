@@ -22,7 +22,7 @@ import static org.springframework.http.HttpStatus.CREATED;
 @Tag(name = "메뉴 API")
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/menus")
+@RequestMapping("/menu")
 public class MenuController {
 
     private final MenuService menuService;

@@ -89,7 +89,7 @@ class StoreControllerTest {
         StoreDetailInfo storeDetailInfo = generateStoreDetailInfo();
 
         // when
-        ResultActions result = mockMvc.perform(post("/stores")
+        ResultActions result = mockMvc.perform(post("/store")
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(new Gson().toJson(storeDetailInfo)));
 
@@ -107,7 +107,7 @@ class StoreControllerTest {
         given(storeService.getStoreDetail(1L)).willReturn(storeDetailInfo);
 
         // when
-        ResultActions result = mockMvc.perform(get("/stores/1"));
+        ResultActions result = mockMvc.perform(get("/store/1"));
 
         // then
         result
@@ -134,7 +134,7 @@ class StoreControllerTest {
         given(storeService.getStoreListByWord("버거")).willReturn(storeInfoList);
 
         // when
-        ResultActions result = mockMvc.perform(get("/stores")
+        ResultActions result = mockMvc.perform(get("/store")
                 .param("query", "버거"));
 
         // then

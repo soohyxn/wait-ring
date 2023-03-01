@@ -50,7 +50,7 @@ class MenuControllerTest {
         MenuInfo menuInput = generateMenuInput();
 
         // when
-        ResultActions result = mockMvc.perform(post("/menus/1")
+        ResultActions result = mockMvc.perform(post("/menu/1")
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(new Gson().toJson(menuInput)));
 
