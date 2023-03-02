@@ -25,7 +25,6 @@ public interface StoreMapper {
     @Mapping(source = "image", target = "images", qualifiedByName = "imageToImages")
     StoreDetailInfo storeToStoreDetailInfo(Store store);
 
-    @Mapping(target = "id", ignore = true)
     @Mapping(source = "images", target = "image", qualifiedByName = "imagesToImage")
     Store storeInputToStore(StoreInput storeInput);
 

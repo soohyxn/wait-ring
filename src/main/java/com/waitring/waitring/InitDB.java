@@ -6,6 +6,7 @@ import com.waitring.waitring.entity.User;
 import lombok.RequiredArgsConstructor;
 import org.hibernate.usertype.UserType;
 import org.springframework.context.annotation.Profile;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -45,7 +46,7 @@ public class InitDB {
              */
             User user1 = User.builder()
                     .email("user1@waitring.com")
-                    .password("1234")
+                    .password(new BCryptPasswordEncoder().encode("1234"))
                     .nickname("유저1")
                     .point(1234)
                     .build();

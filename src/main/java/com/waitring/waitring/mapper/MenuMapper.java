@@ -13,9 +13,7 @@ import org.mapstruct.factory.Mappers;
 public interface MenuMapper {
 
     MenuMapper INSTANCE = Mappers.getMapper(MenuMapper.class);
-    ObjectMapper objectMapper = new ObjectMapper();
 
-    @Mapping(target = "id", ignore = true)
     @Mapping(source = "menuInput.name", target = "name")
     @Mapping(source = "menuInput.price", target = "price")
     @Mapping(source = "menuInput.detail", target = "detail")

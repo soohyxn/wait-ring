@@ -3,9 +3,7 @@ package com.waitring.waitring.entity;
 import lombok.*;
 
 import javax.persistence.*;
-import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
 
 /**
  * 회원 엔티티
