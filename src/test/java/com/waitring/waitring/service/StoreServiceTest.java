@@ -103,7 +103,7 @@ class StoreServiceTest {
     void getStoreDetailInfo() {
         // given
         Store store = generateStore();
-        given(storeRepository.getStoreById(store.getId())).willReturn(store);
+        given(storeRepository.getStoreById(store.getId())).willReturn(Optional.of(store));
 
         // when
         StoreDetailInfo storeDetailInfo = storeService.getStoreDetail(store.getId());

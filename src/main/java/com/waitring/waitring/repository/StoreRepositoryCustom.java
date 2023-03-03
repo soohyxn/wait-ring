@@ -2,6 +2,8 @@ package com.waitring.waitring.repository;
 
 import com.waitring.waitring.entity.Store;
 
+import java.util.Optional;
+
 public interface StoreRepositoryCustom {
-    Store getStoreById(Long id);
+    Optional<Store> getStoreById(Long id);
 }

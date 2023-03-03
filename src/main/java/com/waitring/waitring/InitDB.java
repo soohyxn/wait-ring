@@ -50,6 +50,7 @@ public class InitDB {
                     .nickname("유저1")
                     .point(1234)
                     .build();
+            em.persist(user1);
 
             /**
              * 가게 테스트 데이터
