@@ -3,6 +3,7 @@ package com.waitring.waitring.controller;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.gson.Gson;
 import com.waitring.waitring.dto.user.UserInput;
+import com.waitring.waitring.dto.user.UserLogin;
 import com.waitring.waitring.service.UserService;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -44,6 +45,12 @@ class UserControllerTest {
                 .build();
     }
 
+    UserLogin generateUserLogin() {
+        return UserLogin.builder()
+                .email("user1@waitring.com")
+                .password("1234")
+                .build();
+    }
 
     @Test
     @DisplayName("회원가입")
@@ -60,5 +67,22 @@ class UserControllerTest {
         result
                 .andExpect(status().isCreated())
                 .andExpect(jsonPath("$.result").value("회원가입이 완료되었습니다."));
+    }
+
+    @Test
+    @DisplayName("로그인")
+    void login() throws Exception {
+        // given
+        UserLogin userLogin = generateUserLogin();
+
+        // when
+        ResultActions result = mockMvc.perform(post("/user/login")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(new Gson().toJson(userLogin)));
+
+        // then
+        result
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.result").value("로그인이 완료되었습니다."));
     }
 }
