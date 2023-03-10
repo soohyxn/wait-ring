@@ -1,5 +1,6 @@
 package com.waitring.waitring.service;
 
+import com.waitring.waitring.dto.user.UserInfo;
 import com.waitring.waitring.dto.user.UserInput;
 import com.waitring.waitring.dto.user.UserLogin;
 import com.waitring.waitring.entity.User;
@@ -10,9 +11,7 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.security.crypto.factory.PasswordEncoderFactories;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
 import java.util.Optional;
@@ -95,5 +94,22 @@ class UserServiceTest {
 
         // verify
         verify(userRepository).findByEmail(any(String.class));
+    }
+
+    @Test
+    @DisplayName("회원 조회")
+    void getUser() {
+        // given
+        User user = generateUser();
+        given(userRepository.findById(any(Long.class))).willReturn(Optional.of(user));
+
+        // when
+        UserInfo userInfo = userService.getUser(user.getId());
+
+        // then
+        assertNotNull(userInfo);
+
+        // verify
+        verify(userRepository).findById(any(Long.class));
     }
 }

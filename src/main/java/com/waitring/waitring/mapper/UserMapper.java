@@ -1,5 +1,6 @@
 package com.waitring.waitring.mapper;
 
+import com.waitring.waitring.dto.user.UserInfo;
 import com.waitring.waitring.dto.user.UserInput;
 import com.waitring.waitring.entity.User;
 import org.mapstruct.Mapper;
@@ -16,6 +17,8 @@ public interface UserMapper {
     @Mapping(source = "password", target = "password", qualifiedByName = "passwordEncode")
     @Mapping(target = "point", defaultValue = "0")
     User userInputToUser(UserInput userInput);
+
+    UserInfo userToUserInfo(User user);
 
     @Named("passwordEncode")
     default String passwordEncode(String s) {
