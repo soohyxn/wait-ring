@@ -27,7 +27,7 @@ public class Menu extends BaseEntity {
     private String image; // 메뉴 이미지
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "store_id", insertable = false, updatable = false)
+    @JoinColumn(name = "store_id", updatable = false)
     @JsonIgnore
     private Store store; // 메뉴가 속한 가게
 }

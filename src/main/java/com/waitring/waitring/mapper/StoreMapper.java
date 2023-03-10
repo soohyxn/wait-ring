@@ -26,6 +26,8 @@ public interface StoreMapper {
     StoreDetailInfo storeToStoreDetailInfo(Store store);
 
     @Mapping(source = "images", target = "image", qualifiedByName = "imagesToImage")
+    @Mapping(target = "waitingFlag", defaultValue = "false")
+    @Mapping(target = "reserveFlag", defaultValue = "false")
     Store storeInputToStore(StoreInput storeInput);
 
     List<StoreInfo> storeListToStoreInfoList(List<Store> stores);

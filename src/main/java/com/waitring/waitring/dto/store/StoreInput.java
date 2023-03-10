@@ -46,10 +46,8 @@ public class StoreInput {
     private String closeDay;
 
     @Schema(description = "웨이팅 가능 여부")
-    @NotNull
     private Boolean waitingFlag;
 
     @Schema(description = "예약 가능 여부")
-    @NotNull
     private Boolean reserveFlag;
 }
