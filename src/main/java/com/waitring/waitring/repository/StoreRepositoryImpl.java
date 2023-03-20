@@ -18,7 +18,7 @@ public class StoreRepositoryImpl implements StoreRepositoryCustom {
     public Optional<Store> getStoreById(Long storeId) {
         return Optional.ofNullable(queryFactory
                 .selectFrom(store)
-                .join(store.menus, menu).fetchJoin()
+                .leftJoin(store.menus, menu).fetchJoin()
                 .where(store.id.eq(storeId))
                 .fetchOne());
     }
