@@ -4,6 +4,7 @@ import com.waitring.waitring.dto.keyword.KeywordInfo;
 import com.waitring.waitring.dto.menu.MenuInfo;
 import com.waitring.waitring.entity.Keyword;
 import com.waitring.waitring.entity.Menu;
+import com.waitring.waitring.entity.StoreKeyword;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.AllArgsConstructor;
 import lombok.Builder;

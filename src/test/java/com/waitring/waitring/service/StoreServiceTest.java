@@ -1,8 +1,10 @@
 package com.waitring.waitring.service;
 
+import com.waitring.waitring.dto.keyword.KeywordInfo;
 import com.waitring.waitring.dto.store.StoreDetailInfo;
 import com.waitring.waitring.dto.store.StoreInfo;
 import com.waitring.waitring.dto.store.StoreInput;
+import com.waitring.waitring.entity.Keyword;
 import com.waitring.waitring.entity.Menu;
 import com.waitring.waitring.entity.Store;
 import com.waitring.waitring.repository.StoreRepository;
@@ -61,6 +63,13 @@ class StoreServiceTest {
                 .build();
     }
 
+    List<Keyword> generateKeywordList() {
+        return Collections.singletonList(Keyword.builder()
+                .id(3L)
+                .name("양식")
+                .build());
+    }
+
     StoreInput generateStoreInput() {
         return StoreInput.builder()
                 .name("고든램지 버거")
@@ -102,7 +111,9 @@ class StoreServiceTest {
     void getStoreDetailInfo() {
         // given
         Store store = generateStore();
+        List<Keyword> keywords = generateKeywordList();
         given(storeRepository.getStoreById(store.getId())).willReturn(Optional.of(store));
+        given(storeRepository.getKeywordsByStore(store)).willReturn(keywords);
 
         // when
         StoreDetailInfo storeDetailInfo = storeService.getStoreDetail(store.getId());
@@ -110,9 +121,11 @@ class StoreServiceTest {
         // then
         assertNotNull(storeDetailInfo);
         assertThat(storeDetailInfo.getMenus()).isNotEmpty();
+        assertThat(storeDetailInfo.getKeywords()).isNotEmpty();
 
         // verify
         verify(storeRepository).getStoreById(any(Long.class));
+        verify(storeRepository).getKeywordsByStore(any(Store.class));
     }
 
     @Test

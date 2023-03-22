@@ -29,6 +29,5 @@ public class StoreKeyword extends BaseEntity {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "keyword_id", updatable = false)
-    @JsonIgnore
     private Keyword keyword; // 키워드
 }
