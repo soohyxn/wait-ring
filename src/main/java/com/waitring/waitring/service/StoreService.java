@@ -3,6 +3,7 @@ package com.waitring.waitring.service;
 import com.waitring.waitring.dto.store.StoreDetailInfo;
 import com.waitring.waitring.dto.store.StoreInfo;
 import com.waitring.waitring.dto.store.StoreInput;
+import com.waitring.waitring.entity.Keyword;
 import com.waitring.waitring.entity.Store;
 import com.waitring.waitring.mapper.StoreMapper;
 import com.waitring.waitring.repository.StoreRepository;
@@ -41,7 +42,8 @@ public class StoreService {
     @Transactional(readOnly = true)
     public StoreDetailInfo getStoreDetail(Long id) {
         Store store = storeRepository.getStoreById(id).orElseThrow(() -> new IllegalStateException("가게(id=" + id + ")가 존재하지 않습니다."));
-        StoreDetailInfo storeDetailInfo = shopMapper.INSTANCE.storeToStoreDetailInfo(store);
+        List<Keyword> keywords = storeRepository.getKeywordsByStore(store);
+        StoreDetailInfo storeDetailInfo = shopMapper.INSTANCE.storeToStoreDetailInfo(store, keywords);
         log.info("getStoreDetail: " + storeDetailInfo);
         return storeDetailInfo;
     }

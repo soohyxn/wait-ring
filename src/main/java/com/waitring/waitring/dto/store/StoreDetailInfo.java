@@ -1,5 +1,8 @@
 package com.waitring.waitring.dto.store;
 
+import com.waitring.waitring.dto.keyword.KeywordInfo;
+import com.waitring.waitring.dto.menu.MenuInfo;
+import com.waitring.waitring.entity.Keyword;
 import com.waitring.waitring.entity.Menu;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.AllArgsConstructor;
@@ -35,9 +38,6 @@ public class StoreDetailInfo {
     @NotBlank
     private String areaDetail;
 
-    @Schema(description = "가게 키워드")
-    private String keyword;
-
     @Schema(description = "가게 이미지")
     private String[] images;
 
@@ -61,5 +61,8 @@ public class StoreDetailInfo {
     private Boolean reserveFlag;
 
     @Schema(description = "가게 메뉴 리스트")
-    private List<Menu> menus;
+    private List<MenuInfo> menus;
+
+    @Schema(description = "가게 키워드 리스트")
+    private List<KeywordInfo> keywords;
 }

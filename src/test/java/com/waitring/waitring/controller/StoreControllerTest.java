@@ -2,6 +2,7 @@ package com.waitring.waitring.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.gson.Gson;
+import com.waitring.waitring.dto.menu.MenuInfo;
 import com.waitring.waitring.dto.store.StoreDetailInfo;
 import com.waitring.waitring.dto.store.StoreInfo;
 import com.waitring.waitring.entity.Menu;
@@ -46,7 +47,6 @@ class StoreControllerTest {
                 .name("고든램지 버거")
                 .areaDong("신천동")
                 .areaDetail("서울 송파구 올림픽로 300 롯데월드몰 B1층")
-                .keyword("프리미엄, 양식, 버거")
                 .images(new String[]{
                         "https://image-cdn.hypb.st/https%3A%2F%2Fkr.hypebeast.com%2Ffiles%2F2021%2F01%2FHypebeast-check-gordon-ramsay-burger-korean-restaurant-info-22.jpg?w=1600&cbr=1&q=90&fit=max",
                         "https://image-cdn.hypb.st/https%3A%2F%2Fkr.hypebeast.com%2Ffiles%2F2021%2F11%2FGordon-ramsay-burger-korean-open-date-official-info-02.jpg?q=75&w=800&cbr=1&fit=max",
@@ -56,7 +56,7 @@ class StoreControllerTest {
                 .closeDay("매주 셋째주 월요일")
                 .waitingFlag(true)
                 .reserveFlag(false)
-                .menus(new ArrayList<>(Collections.singleton(generateMenu())))
+                .menus(new ArrayList<>(Collections.singleton(generateMenuInfo())))
                 .build();
     }
 
@@ -72,8 +72,8 @@ class StoreControllerTest {
                 .build();
     }
 
-    Menu generateMenu() {
-        return Menu.builder()
+    MenuInfo generateMenuInfo() {
+        return MenuInfo.builder()
                 .id(2L)
                 .name("헬스 키친 버거")
                 .price(31000)

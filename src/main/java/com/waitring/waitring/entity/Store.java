@@ -24,7 +24,6 @@ public class Store extends BaseEntity {
     private String name; // 가게명
     private String areaDong; // 가게 동네 위치
     private String areaDetail; // 가게 상세 주소
-    private String keyword; // 가게 키워드
     @Column(columnDefinition = "TEXT")
     private String image; // 가게 이미지
     private String openTime; // 영업 오픈시간
@@ -37,4 +36,7 @@ public class Store extends BaseEntity {
 
     @OneToMany(mappedBy = "store", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Menu> menus = new ArrayList<>(); // 가게 메뉴 리스트
+
+    @OneToMany(mappedBy = "store", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<StoreKeyword> keywords = new ArrayList<>(); // 키워드 리스트
 }

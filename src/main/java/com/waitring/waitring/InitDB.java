@@ -1,8 +1,6 @@
 package com.waitring.waitring;
 
-import com.waitring.waitring.entity.Menu;
-import com.waitring.waitring.entity.Store;
-import com.waitring.waitring.entity.User;
+import com.waitring.waitring.entity.*;
 import lombok.RequiredArgsConstructor;
 import org.hibernate.usertype.UserType;
 import org.springframework.context.annotation.Profile;
@@ -59,7 +57,6 @@ public class InitDB {
                     .name("고든램지 버거")
                     .areaDong("신천동")
                     .areaDetail("서울 송파구 올림픽로 300 롯데월드몰 B1층")
-                    .keyword("프리미엄, 양식, 버거")
                     .image("[\"https://image-cdn.hypb.st/https%3A%2F%2Fkr.hypebeast.com%2Ffiles%2F2021%2F01%2FHypebeast-check-gordon-ramsay-burger-korean-restaurant-info-22.jpg?w=1600&cbr=1&q=90&fit=max\"," +
                             "\"https://image-cdn.hypb.st/https%3A%2F%2Fkr.hypebeast.com%2Ffiles%2F2021%2F11%2FGordon-ramsay-burger-korean-open-date-official-info-02.jpg?q=75&w=800&cbr=1&fit=max\"," +
                             "\"https://image-cdn.hypb.st/https%3A%2F%2Fkr.hypebeast.com%2Ffiles%2F2021%2F01%2FHypebeast-check-gordon-ramsay-burger-korean-restaurant-info-23.jpg?w=1600&cbr=1&q=90&fit=max\"]")
@@ -75,7 +72,6 @@ public class InitDB {
                     .name("호랑이식당 롯데영등포점")
                     .areaDong("영등포동")
                     .areaDetail("서울특별시 영등포구 경인로 846 1층")
-                    .keyword("깨끗한, 일식, 라멘")
                     .image("[\"https://www.withbuyer.com/news/photo/202101/20946_11658_1837.jpg\"," +
                             "\"https://fastly.4sqi.net/img/general/600x600/1031332_xMRWHJI6gyx67OWao007x9QJHCRrwZXtvVikBSWLnZs.jpg\"," +
                             "\"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQnCsNulDAFudjACXelVM748SzRVsIQW2-MNQ&usqp=CAU\"]")
@@ -91,7 +87,6 @@ public class InitDB {
                     .name("후쿠오카함바그 롯데백화점노원")
                     .areaDong("상계동")
                     .areaDetail("서울특별시 노원구 동일로 1414")
-                    .keyword("깨끗한, 일식, 함바그")
                     .image("[\"https://t1.daumcdn.net/cfile/tistory/252170375909AB6931\"," +
                             "\"https://www.gimhae.go.kr/CmsMultiFile/view.do?multifileId=MF00002744&idx=15896&s=800x800\"," +
                             "\"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ6awLHGWLGuC7HDu80-FZBtwWW9-WIwOW0RQ&usqp=CAU\"]")
@@ -107,7 +102,6 @@ public class InitDB {
                     .name("별미곱창")
                     .areaDong("방이동")
                     .areaDetail("서울특별시 송파구 올림픽로32길 22")
-                    .keyword("한식, 곱창, 안주")
                     .image("[\"https://mp-seoul-image-production-s3.mangoplate.com/209802/83465_1631076696663_63542?fit=around|512:512&crop=512:512;*,*&output-format=jpg&output-quality=80\"," +
                             "\"https://mp-seoul-image-production-s3.mangoplate.com/1250968_1651396898827190.jpg?fit=around|512:512&crop=512:512;*,*&output-format=jpg&output-quality=80\"," +
                             "\"https://mp-seoul-image-production-s3.mangoplate.com/1272306_1606457666085316.jpg\"]")
@@ -123,7 +117,6 @@ public class InitDB {
                     .name("우미노미")
                     .areaDong("당산동")
                     .areaDetail("서울특별시 영등포구 당산로 180 신우빌딩 1F")
-                    .keyword("일식, 돈부리, 벤또")
                     .image("[\"https://mp-seoul-image-production-s3.mangoplate.com/sources/web/restaurants/405162/894765_1640500466267\"," +
                             "\"https://mp-seoul-image-production-s3.mangoplate.com/405162/513273_1597229296822_10244\"," +
                             "\"https://mp-seoul-image-production-s3.mangoplate.com/sources/web/restaurants/405162/894765_1640500463779\"]")
@@ -272,6 +265,93 @@ public class InitDB {
                     .image("https://search.pstatic.net/common/?src=http%3A%2F%2Fblogfiles.naver.net%2FMjAyMTA3MDZfNzAg%2FMDAxNjI1NTQxMjQ5MTg2.BS7k_kjP1mO2iSLwj2dF6NLzG0ZRT9tWxXGhnY0Z6E4g.ctXqSH2PQ_gDWV6ctRUH4lR16hlOCj29dQMM2bozNz0g.JPEG.gumingii%2FKakaoTalk_20210706_114123668.jpg&type=sc960_832")
                     .build();
             em.persist(menu15);
+
+            /**
+             * 키워드 테스트 데이터
+             */
+            Keyword keyword1 = Keyword.builder().name("프리미엄").build();
+            em.persist(keyword1);
+
+            Keyword keyword2 = Keyword.builder().name("양식").build();
+            em.persist(keyword2);
+
+            Keyword keyword3 = Keyword.builder().name("버거").build();
+            em.persist(keyword3);
+
+            Keyword keyword4 = Keyword.builder().name("깨끗한").build();
+            em.persist(keyword4);
+
+            Keyword keyword5 = Keyword.builder().name("일식").build();
+            em.persist(keyword5);
+
+            Keyword keyword6 = Keyword.builder().name("라멘").build();
+            em.persist(keyword6);
+
+            Keyword keyword7 = Keyword.builder().name("함바그").build();
+            em.persist(keyword7);
+
+            Keyword keyword8 = Keyword.builder().name("한식").build();
+            em.persist(keyword8);
+
+            Keyword keyword9 = Keyword.builder().name("곱창").build();
+            em.persist(keyword9);
+
+            Keyword keyword10 = Keyword.builder().name("안주").build();
+            em.persist(keyword10);
+
+            Keyword keyword11 = Keyword.builder().name("돈부리").build();
+            em.persist(keyword11);
+
+            Keyword keyword12 = Keyword.builder().name("벤또").build();
+            em.persist(keyword12);
+
+            /**
+             * 가게_키워드 테스트 데이터
+             */
+            StoreKeyword storeKeyword1 = StoreKeyword.builder().store(store1).keyword(keyword1).build();
+            em.persist(storeKeyword1);
+
+            StoreKeyword storeKeyword2 = StoreKeyword.builder().store(store1).keyword(keyword2).build();
+            em.persist(storeKeyword2);
+
+            StoreKeyword storeKeyword3 = StoreKeyword.builder().store(store1).keyword(keyword3).build();
+            em.persist(storeKeyword3);
+
+            StoreKeyword storeKeyword4 = StoreKeyword.builder().store(store2).keyword(keyword4).build();
+            em.persist(storeKeyword4);
+
+            StoreKeyword storeKeyword5 = StoreKeyword.builder().store(store2).keyword(keyword5).build();
+            em.persist(storeKeyword5);
+
+            StoreKeyword storeKeyword6 = StoreKeyword.builder().store(store2).keyword(keyword6).build();
+            em.persist(storeKeyword6);
+
+            StoreKeyword storeKeyword7 = StoreKeyword.builder().store(store3).keyword(keyword4).build();
+            em.persist(storeKeyword7);
+
+            StoreKeyword storeKeyword8 = StoreKeyword.builder().store(store3).keyword(keyword5).build();
+            em.persist(storeKeyword8);
+
+            StoreKeyword storeKeyword9 = StoreKeyword.builder().store(store3).keyword(keyword7).build();
+            em.persist(storeKeyword9);
+
+            StoreKeyword storeKeyword10 = StoreKeyword.builder().store(store4).keyword(keyword8).build();
+            em.persist(storeKeyword10);
+
+            StoreKeyword storeKeyword11 = StoreKeyword.builder().store(store4).keyword(keyword9).build();
+            em.persist(storeKeyword11);
+
+            StoreKeyword storeKeyword12 = StoreKeyword.builder().store(store4).keyword(keyword10).build();
+            em.persist(storeKeyword12);
+
+            StoreKeyword storeKeyword13 = StoreKeyword.builder().store(store5).keyword(keyword5).build();
+            em.persist(storeKeyword13);
+
+            StoreKeyword storeKeyword14 = StoreKeyword.builder().store(store5).keyword(keyword11).build();
+            em.persist(storeKeyword14);
+
+            StoreKeyword storeKeyword15 = StoreKeyword.builder().store(store5).keyword(keyword12).build();
+            em.persist(storeKeyword15);
         }
 
     }
