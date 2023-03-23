@@ -1,12 +1,13 @@
 package com.waitring.waitring.service;
 
-import com.waitring.waitring.dto.keyword.KeywordInfo;
 import com.waitring.waitring.dto.store.StoreDetailInfo;
 import com.waitring.waitring.dto.store.StoreInfo;
 import com.waitring.waitring.dto.store.StoreInput;
 import com.waitring.waitring.entity.Keyword;
 import com.waitring.waitring.entity.Menu;
 import com.waitring.waitring.entity.Store;
+import com.waitring.waitring.entity.StoreKeyword;
+import com.waitring.waitring.repository.StoreKeywordRepository;
 import com.waitring.waitring.repository.StoreRepository;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -17,6 +18,7 @@ import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.util.*;
 
+import static java.util.Collections.singletonList;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
@@ -28,6 +30,9 @@ class StoreServiceTest {
 
     @Mock
     private StoreRepository storeRepository;
+
+    @Mock
+    private StoreKeywordRepository storeKeywordRepository;
 
     @InjectMocks
     private StoreService storeService;
@@ -63,10 +68,18 @@ class StoreServiceTest {
                 .build();
     }
 
-    List<Keyword> generateKeywordList() {
-        return Collections.singletonList(Keyword.builder()
+    Keyword generateKeyword() {
+        return Keyword.builder()
                 .id(3L)
                 .name("양식")
+                .build();
+    }
+
+    List<StoreKeyword> generateStoreKeyword() {
+        return singletonList(StoreKeyword.builder()
+                .id(4L)
+                .store(generateStore())
+                .keyword(generateKeyword())
                 .build());
     }
 
@@ -111,9 +124,9 @@ class StoreServiceTest {
     void getStoreDetailInfo() {
         // given
         Store store = generateStore();
-        List<Keyword> keywords = generateKeywordList();
+        List<Keyword> keywords = singletonList(generateKeyword());
         given(storeRepository.getStoreById(store.getId())).willReturn(Optional.of(store));
-        given(storeRepository.getKeywordsByStore(store)).willReturn(keywords);
+        given(storeKeywordRepository.getKeywordsByStore(store)).willReturn(keywords);
 
         // when
         StoreDetailInfo storeDetailInfo = storeService.getStoreDetail(store.getId());
@@ -125,15 +138,17 @@ class StoreServiceTest {
 
         // verify
         verify(storeRepository).getStoreById(any(Long.class));
-        verify(storeRepository).getKeywordsByStore(any(Store.class));
+        verify(storeKeywordRepository).getKeywordsByStore(any(Store.class));
     }
 
     @Test
     @DisplayName("검색어로 가게 조회")
     void getStoreListByWord() {
         // given
-        List<Store> storeList = Collections.singletonList(generateStore());
-        given(storeRepository.findByNameContainingOrAreaDongContaining("버거", "버거")).willReturn(storeList);
+        List<Store> stores = singletonList(generateStore());
+        List<StoreKeyword> storeKeywords = generateStoreKeyword();
+        given(storeRepository.findByNameContainingOrAreaDongContaining("버거", "버거")).willReturn(stores);
+        given(storeKeywordRepository.getKeywordByStores(stores)).willReturn(storeKeywords);
 
         // when
         List<StoreInfo> storeInfoList = storeService.getStoreListByWord("버거");
@@ -144,5 +159,6 @@ class StoreServiceTest {
 
         // verify
         verify(storeRepository).findByNameContainingOrAreaDongContaining(any(String.class), any(String.class));
+        verify(storeKeywordRepository).getKeywordByStores(any(List.class));
     }
 }

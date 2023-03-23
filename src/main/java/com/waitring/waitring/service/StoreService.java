@@ -61,11 +61,11 @@ public class StoreService {
      */
     @Transactional(readOnly = true)
     public List<StoreInfo> getStoreListByWord(String word) {
-        List<Store> storeList = storeRepository.findByNameContainingOrAreaDongContaining(word, word);
-        List<StoreKeyword> storeKeywords = storeKeywordRepository.getKeywordByStores(storeList);
+        List<Store> stores = storeRepository.findByNameContainingOrAreaDongContaining(word, word);
+        List<StoreKeyword> storeKeywords = storeKeywordRepository.getKeywordByStores(stores);
 
         // mapping
-        List<StoreInfo> storeInfoList = shopMapper.INSTANCE.storeListToStoreInfoList(storeList);
+        List<StoreInfo> storeInfoList = shopMapper.INSTANCE.storeListToStoreInfoList(stores);
         storeInfoList.forEach(si -> {
             storeKeywords.forEach(sk -> {
                 if (si.getId().equals(sk.getStore().getId())) {

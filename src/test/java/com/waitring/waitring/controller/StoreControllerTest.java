@@ -6,9 +6,6 @@ import com.waitring.waitring.dto.keyword.KeywordInfo;
 import com.waitring.waitring.dto.menu.MenuInfo;
 import com.waitring.waitring.dto.store.StoreDetailInfo;
 import com.waitring.waitring.dto.store.StoreInfo;
-import com.waitring.waitring.dto.store.StoreInput;
-import com.waitring.waitring.entity.Keyword;
-import com.waitring.waitring.entity.Menu;
 import com.waitring.waitring.service.StoreService;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -21,10 +18,9 @@ import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.ResultActions;
 
-import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
+import static java.util.Collections.singletonList;
 import static org.mockito.BDDMockito.given;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
@@ -61,8 +57,8 @@ class StoreControllerTest {
                 .closeDay("매주 셋째주 월요일")
                 .waitingFlag(true)
                 .reserveFlag(false)
-                .menus(new ArrayList<>(Collections.singleton(generateMenuInfo())))
-                .keywords(new ArrayList<>(Collections.singleton(generateKeywordInfo())))
+                .menus(singletonList(generateMenuInfo()))
+                .keywords(singletonList(generateKeywordInfo()))
                 .build();
     }
 
@@ -74,6 +70,7 @@ class StoreControllerTest {
                 .image("https://image-cdn.hypb.st/https%3A%2F%2Fkr.hypebeast.com%2Ffiles%2F2021%2F01%2FHypebeast-check-gordon-ramsay-burger-korean-restaurant-info-22.jpg?w=1600&cbr=1&q=90&fit=max")
                 .waitingFlag(true)
                 .reserveFlag(false)
+                .keywords(singletonList(generateKeywordInfo()))
                 .build();
     }
 
@@ -142,7 +139,7 @@ class StoreControllerTest {
     @DisplayName("검색어로 가게 조회")
     void getStoreListByWord() throws Exception {
         // given
-        List<StoreInfo> storeInfoList = Collections.singletonList(generateStoreInfo());
+        List<StoreInfo> storeInfoList = singletonList(generateStoreInfo());
         given(storeService.getStoreListByWord("버거")).willReturn(storeInfoList);
 
         // when
@@ -157,6 +154,7 @@ class StoreControllerTest {
                 .andExpect(jsonPath("$[0].areaDong").value("신천동"))
                 .andExpect(jsonPath("$[0].image").isNotEmpty())
                 .andExpect(jsonPath("$[0].waitingFlag").value(true))
-                .andExpect(jsonPath("$[0].reserveFlag").value(false));
+                .andExpect(jsonPath("$[0].reserveFlag").value(false))
+                .andExpect(jsonPath("$[0].keywords.length()").value(1));
     }
 }
