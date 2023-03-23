@@ -36,7 +36,4 @@ public class Store extends BaseEntity {
 
     @OneToMany(mappedBy = "store", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Menu> menus = new ArrayList<>(); // 가게 메뉴 리스트
-
-    @OneToMany(mappedBy = "store", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<StoreKeyword> keywords = new ArrayList<>(); // 키워드 리스트
 }
