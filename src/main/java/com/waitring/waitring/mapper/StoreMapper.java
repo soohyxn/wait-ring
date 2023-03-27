@@ -14,6 +14,7 @@ import org.mapstruct.Mapping;
 import org.mapstruct.Named;
 import org.mapstruct.factory.Mappers;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -51,8 +52,19 @@ public interface StoreMapper {
         return objectMapper.writeValueAsString(list);
     }
 
-    @Named("storeKeywordsToKeywords")
-    default List<KeywordInfo> storeKeywordsToKeywords(List<StoreKeyword> storeKeywords) throws JsonProcessingException {
-        return storeKeywords.stream().map(s -> new KeywordInfo(s.getKeyword().getId(), s.getKeyword().getName())).collect(Collectors.toList());
+    default void setKeywords(List<StoreInfo> storeInfos, List<StoreKeyword> storeKeywords) {
+        storeInfos.forEach(si -> storeKeywords.forEach(sk -> {
+            if (si.getId().equals(sk.getStore().getId())) {
+                if (si.getKeywords() == null) {
+                    si.setKeywords(new ArrayList<>());
+                }
+
+                si.getKeywords().add(
+                        KeywordInfo.builder()
+                        .id(sk.getKeyword().getId())
+                        .name(sk.getKeyword().getName())
+                        .build());
+            }
+        }));
     }
 }

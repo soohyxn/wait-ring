@@ -65,19 +65,10 @@ public class StoreService {
         List<StoreKeyword> storeKeywords = storeKeywordRepository.getKeywordByStores(stores);
 
         // mapping
-        List<StoreInfo> storeInfoList = shopMapper.INSTANCE.storeListToStoreInfoList(stores);
-        storeInfoList.forEach(si -> {
-            storeKeywords.forEach(sk -> {
-                if (si.getId().equals(sk.getStore().getId())) {
-                    if (si.getKeywords() == null) {
-                        si.setKeywords(new ArrayList<>());
-                    }
-                    si.getKeywords().add(new KeywordInfo(sk.getKeyword().getId(), sk.getKeyword().getName()));
-                }
-            });
-        });
+        List<StoreInfo> storeInfos = shopMapper.INSTANCE.storeListToStoreInfoList(stores);
+        shopMapper.INSTANCE.setKeywords(storeInfos, storeKeywords);
 
-        log.info("getStoreListByWord: " + storeInfoList);
-        return storeInfoList;
+        log.info("getStoreListByWord: " + storeInfos);
+        return storeInfos;
     }
 }
