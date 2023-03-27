@@ -7,6 +7,7 @@ import com.waitring.waitring.entity.Keyword;
 import com.waitring.waitring.entity.Menu;
 import com.waitring.waitring.entity.Store;
 import com.waitring.waitring.entity.StoreKeyword;
+import com.waitring.waitring.repository.KeywordRepository;
 import com.waitring.waitring.repository.StoreKeywordRepository;
 import com.waitring.waitring.repository.StoreRepository;
 import org.junit.jupiter.api.DisplayName;
@@ -34,6 +35,9 @@ class StoreServiceTest {
     @Mock
     private StoreKeywordRepository storeKeywordRepository;
 
+    @Mock
+    private KeywordRepository keywordRepository;
+
     @InjectMocks
     private StoreService storeService;
 
@@ -54,7 +58,7 @@ class StoreServiceTest {
                 .closeDay("매주 셋째주 월요일")
                 .waitingFlag(true)
                 .reserveFlag(false)
-                .menus(new ArrayList<>(Collections.singleton(generateMenu())))
+                .menus(singletonList(generateMenu()))
                 .build();
     }
 
@@ -75,12 +79,12 @@ class StoreServiceTest {
                 .build();
     }
 
-    List<StoreKeyword> generateStoreKeyword() {
-        return singletonList(StoreKeyword.builder()
+    StoreKeyword generateStoreKeyword() {
+        return StoreKeyword.builder()
                 .id(4L)
                 .store(generateStore())
                 .keyword(generateKeyword())
-                .build());
+                .build();
     }
 
     StoreInput generateStoreInput() {
@@ -98,6 +102,7 @@ class StoreServiceTest {
                 .closeDay("매주 셋째주 월요일")
                 .waitingFlag(true)
                 .reserveFlag(false)
+                .keywords(new Long[]{3L})
                 .build();
     }
 
@@ -106,7 +111,11 @@ class StoreServiceTest {
     void addStore() {
         // given
         Store store = generateStore();
+        Keyword keyword = generateKeyword();
+        StoreKeyword storeKeyword = generateStoreKeyword();
         given(storeRepository.save(any(Store.class))).willReturn(store);
+        given(keywordRepository.findById(any(Long.class))).willReturn(Optional.of(keyword));
+        given(storeKeywordRepository.save(any(StoreKeyword.class))).willReturn(storeKeyword);
 
         // when
         Store addStore = storeService.addStore(generateStoreInput());
@@ -117,6 +126,8 @@ class StoreServiceTest {
 
         // verify
         verify(storeRepository).save(any(Store.class));
+        verify(keywordRepository).findById(any(Long.class));
+        verify(storeKeywordRepository).save(any(StoreKeyword.class));
     }
 
     @Test
@@ -146,7 +157,7 @@ class StoreServiceTest {
     void getStoreListByWord() {
         // given
         List<Store> stores = singletonList(generateStore());
-        List<StoreKeyword> storeKeywords = generateStoreKeyword();
+        List<StoreKeyword> storeKeywords = singletonList(generateStoreKeyword());
         given(storeRepository.findByNameContainingOrAreaDongContaining("버거", "버거")).willReturn(stores);
         given(storeKeywordRepository.getKeywordByStores(stores)).willReturn(storeKeywords);
 

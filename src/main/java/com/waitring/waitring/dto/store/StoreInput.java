@@ -7,7 +7,6 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotNull;
 
 @Schema(description = "입력받은 가게 정보")
 @Data
@@ -50,4 +49,7 @@ public class StoreInput {
 
     @Schema(description = "예약 가능 여부")
     private Boolean reserveFlag;
+
+    @Schema(description = "가게 키워드 리스트")
+    private Long[] keywords;
 }

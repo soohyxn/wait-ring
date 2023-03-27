@@ -16,7 +16,6 @@ import org.mapstruct.factory.Mappers;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Mapper(componentModel = "spring")
 public interface StoreMapper {
@@ -59,11 +58,7 @@ public interface StoreMapper {
                     si.setKeywords(new ArrayList<>());
                 }
 
-                si.getKeywords().add(
-                        KeywordInfo.builder()
-                        .id(sk.getKeyword().getId())
-                        .name(sk.getKeyword().getName())
-                        .build());
+                si.getKeywords().add(KeywordInfo.builder().id(sk.getKeyword().getId()).name(sk.getKeyword().getName()).build());
             }
         }));
     }

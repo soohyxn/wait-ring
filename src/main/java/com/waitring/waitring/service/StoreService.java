@@ -8,6 +8,7 @@ import com.waitring.waitring.entity.Keyword;
 import com.waitring.waitring.entity.Store;
 import com.waitring.waitring.entity.StoreKeyword;
 import com.waitring.waitring.mapper.StoreMapper;
+import com.waitring.waitring.repository.KeywordRepository;
 import com.waitring.waitring.repository.StoreKeywordRepository;
 import com.waitring.waitring.repository.StoreRepository;
 import lombok.RequiredArgsConstructor;
@@ -27,6 +28,7 @@ public class StoreService {
 
     private final StoreRepository storeRepository;
     private final StoreKeywordRepository storeKeywordRepository;
+    private final KeywordRepository keywordRepository;
     private final StoreMapper shopMapper;
 
     /**
@@ -35,8 +37,18 @@ public class StoreService {
      */
     public Store addStore(StoreInput storeInput) {
         Store store = shopMapper.INSTANCE.storeInputToStore(storeInput);
+
+        // 가게 저장
         Store addStore = storeRepository.save(store);
         log.info("addStore: " + addStore);
+
+        // 가게_키워드 저장
+        for(Long id : storeInput.getKeywords()) {
+            Keyword keyword = keywordRepository.findById(id).orElseThrow(() -> new IllegalStateException("키워드(id=" + id + ")가 존재하지 않습니다."));
+            StoreKeyword addStoreKeyword = storeKeywordRepository.save(StoreKeyword.builder().store(addStore).keyword(keyword).build());
+            log.info("addStoreKeyword: " + addStoreKeyword);
+        }
+
         return addStore;
     }
 
