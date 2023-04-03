@@ -19,15 +19,6 @@ public class StoreKeywordRepositoryImpl implements StoreKeywordRepositoryCustom 
     private final JPAQueryFactory queryFactory;
 
     @Override
-    public List<Keyword> getKeywordsByStore(Store store){
-        return queryFactory
-                .select(storeKeyword.keyword)
-                .from(storeKeyword)
-                .where(storeKeyword.store.in(store))
-                .fetch();
-    }
-
-    @Override
     public List<StoreKeyword> getKeywordByStores(List<Store> stores) {
         return queryFactory
                 .select(storeKeyword)

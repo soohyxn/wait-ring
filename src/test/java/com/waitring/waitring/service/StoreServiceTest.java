@@ -58,7 +58,6 @@ class StoreServiceTest {
                 .closeDay("매주 셋째주 월요일")
                 .waitingFlag(true)
                 .reserveFlag(false)
-                .menus(singletonList(generateMenu()))
                 .build();
     }
 
@@ -135,9 +134,11 @@ class StoreServiceTest {
     void getStoreDetailInfo() {
         // given
         Store store = generateStore();
+        List<Menu> menus = singletonList(generateMenu());
         List<Keyword> keywords = singletonList(generateKeyword());
-        given(storeRepository.getStoreById(store.getId())).willReturn(Optional.of(store));
-        given(storeKeywordRepository.getKeywordsByStore(store)).willReturn(keywords);
+        given(storeRepository.findById(store.getId())).willReturn(Optional.of(store));
+        given(storeRepository.getMenusByStore(store)).willReturn(menus);
+        given(storeRepository.getKeywordsByStore(store)).willReturn(keywords);
 
         // when
         StoreDetailInfo storeDetailInfo = storeService.getStoreDetail(store.getId());
@@ -148,8 +149,9 @@ class StoreServiceTest {
         assertThat(storeDetailInfo.getKeywords()).isNotEmpty();
 
         // verify
-        verify(storeRepository).getStoreById(any(Long.class));
-        verify(storeKeywordRepository).getKeywordsByStore(any(Store.class));
+        verify(storeRepository).findById(any(Long.class));
+        verify(storeRepository).getMenusByStore(any(Store.class));
+        verify(storeRepository).getKeywordsByStore(any(Store.class));
     }
 
     @Test

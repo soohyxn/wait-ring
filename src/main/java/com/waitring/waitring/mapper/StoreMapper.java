@@ -7,6 +7,7 @@ import com.waitring.waitring.dto.store.StoreDetailInfo;
 import com.waitring.waitring.dto.store.StoreInfo;
 import com.waitring.waitring.dto.store.StoreInput;
 import com.waitring.waitring.entity.Keyword;
+import com.waitring.waitring.entity.Menu;
 import com.waitring.waitring.entity.Store;
 import com.waitring.waitring.entity.StoreKeyword;
 import org.mapstruct.Mapper;
@@ -27,7 +28,7 @@ public interface StoreMapper {
     StoreInfo storeToStoreInfo(Store store);
 
     @Mapping(source = "store.image", target = "images", qualifiedByName = "imageToImages")
-    StoreDetailInfo storeToStoreDetailInfo(Store store, List<Keyword> keywords);
+    StoreDetailInfo storeToStoreDetailInfo(Store store, List<Menu> menus, List<Keyword> keywords);
 
     @Mapping(source = "images", target = "image", qualifiedByName = "imagesToImage")
     @Mapping(target = "waitingFlag", defaultValue = "false")

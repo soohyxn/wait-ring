@@ -33,7 +33,4 @@ public class Store extends BaseEntity {
     private Boolean reserveFlag; // 예약 가능 여부
     private String locationLat; // 가게 위도 정보
     private String locationLng; // 가게 경도 정보
-
-    @OneToMany(mappedBy = "store", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<Menu> menus = new ArrayList<>(); // 가게 메뉴 리스트
 }

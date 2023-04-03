@@ -7,6 +7,5 @@ import com.waitring.waitring.entity.StoreKeyword;
 import java.util.List;
 
 public interface StoreKeywordRepositoryCustom {
-    List<Keyword> getKeywordsByStore(Store store);
     List<StoreKeyword> getKeywordByStores(List<Store> stores);
 }

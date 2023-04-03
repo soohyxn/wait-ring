@@ -1,10 +1,10 @@
 package com.waitring.waitring.service;
 
-import com.waitring.waitring.dto.keyword.KeywordInfo;
 import com.waitring.waitring.dto.store.StoreDetailInfo;
 import com.waitring.waitring.dto.store.StoreInfo;
 import com.waitring.waitring.dto.store.StoreInput;
 import com.waitring.waitring.entity.Keyword;
+import com.waitring.waitring.entity.Menu;
 import com.waitring.waitring.entity.Store;
 import com.waitring.waitring.entity.StoreKeyword;
 import com.waitring.waitring.mapper.StoreMapper;
@@ -16,9 +16,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 
 @Slf4j
 @Service
@@ -59,9 +57,11 @@ public class StoreService {
      */
     @Transactional(readOnly = true)
     public StoreDetailInfo getStoreDetail(Long id) {
-        Store store = storeRepository.getStoreById(id).orElseThrow(() -> new IllegalStateException("가게(id=" + id + ")가 존재하지 않습니다."));
-        List<Keyword> keywords = storeKeywordRepository.getKeywordsByStore(store);
-        StoreDetailInfo storeDetailInfo = shopMapper.INSTANCE.storeToStoreDetailInfo(store, keywords);
+        Store store = storeRepository.findById(id).orElseThrow(() -> new IllegalStateException("가게(id=" + id + ")가 존재하지 않습니다."));
+        List<Menu> menus = storeRepository.getMenusByStore(store);
+        List<Keyword> keywords = storeRepository.getKeywordsByStore(store);
+
+        StoreDetailInfo storeDetailInfo = shopMapper.INSTANCE.storeToStoreDetailInfo(store, menus, keywords);
         log.info("getStoreDetail: " + storeDetailInfo);
         return storeDetailInfo;
     }
