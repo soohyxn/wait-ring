@@ -1,13 +1,10 @@
 package com.waitring.waitring.repository;
 
 import com.querydsl.jpa.impl.JPAQueryFactory;
-import com.waitring.waitring.entity.Keyword;
-import com.waitring.waitring.entity.Menu;
-import com.waitring.waitring.entity.Store;
+import com.waitring.waitring.entity.*;
 import lombok.RequiredArgsConstructor;
 
 import java.util.List;
-import java.util.Optional;
 
 import static com.waitring.waitring.entity.QMenu.menu;
 import static com.waitring.waitring.entity.QStore.store;
@@ -33,5 +30,19 @@ public class StoreRepositoryImpl implements StoreRepositoryCustom {
                 .from(storeKeyword)
                 .where(storeKeyword.store.in(store))
                 .fetch();
+    }
+
+    @Override
+    public List<Store> getStoreListByWord(String word) {
+        return queryFactory
+                .selectFrom(store)
+                .leftJoin(store.storeKeywords, storeKeyword).fetchJoin()
+                .leftJoin(storeKeyword.keyword).fetchJoin()
+                .where(store.name.contains(word)
+                        .or(store.areaDong.contains(word))
+                        .or(storeKeyword.keyword.name.contains(word)))
+                .distinct()
+                .fetch();
+
     }
 }

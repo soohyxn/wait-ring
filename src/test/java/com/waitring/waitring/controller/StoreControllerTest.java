@@ -97,7 +97,6 @@ class StoreControllerTest {
                 .name("고든램지 버거")
                 .areaDong("신천동")
                 .areaDetail("서울 송파구 올림픽로 300 롯데월드몰 B1층")
-                .keyword("프리미엄, 양식, 버거")
                 .images(new String[]{
                         "https://image-cdn.hypb.st/https%3A%2F%2Fkr.hypebeast.com%2Ffiles%2F2021%2F01%2FHypebeast-check-gordon-ramsay-burger-korean-restaurant-info-22.jpg?w=1600&cbr=1&q=90&fit=max",
                         "https://image-cdn.hypb.st/https%3A%2F%2Fkr.hypebeast.com%2Ffiles%2F2021%2F11%2FGordon-ramsay-burger-korean-open-date-official-info-02.jpg?q=75&w=800&cbr=1&fit=max",

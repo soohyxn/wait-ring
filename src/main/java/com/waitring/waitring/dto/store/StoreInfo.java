@@ -1,6 +1,7 @@
 package com.waitring.waitring.dto.store;
 
 import com.waitring.waitring.dto.keyword.KeywordInfo;
+import com.waitring.waitring.entity.Keyword;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.AllArgsConstructor;
 import lombok.Builder;

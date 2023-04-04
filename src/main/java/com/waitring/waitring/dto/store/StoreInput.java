@@ -27,9 +27,6 @@ public class StoreInput {
     @NotBlank
     private String areaDetail;
 
-    @Schema(description = "가게 키워드")
-    private String keyword;
-
     @Schema(description = "가게 이미지")
     private String[] images;
 

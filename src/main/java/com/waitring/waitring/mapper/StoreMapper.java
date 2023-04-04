@@ -15,7 +15,6 @@ import org.mapstruct.Mapping;
 import org.mapstruct.Named;
 import org.mapstruct.factory.Mappers;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @Mapper(componentModel = "spring")
@@ -25,6 +24,7 @@ public interface StoreMapper {
     ObjectMapper objectMapper = new ObjectMapper();
 
     @Mapping(source = "image", target = "image", qualifiedByName = "imageToImage")
+    @Mapping(source = "storeKeywords", target = "keywords")
     StoreInfo storeToStoreInfo(Store store);
 
     @Mapping(source = "store.image", target = "images", qualifiedByName = "imageToImages")
@@ -34,6 +34,10 @@ public interface StoreMapper {
     @Mapping(target = "waitingFlag", defaultValue = "false")
     @Mapping(target = "reserveFlag", defaultValue = "false")
     Store storeInputToStore(StoreInput storeInput);
+
+    @Mapping(source = "storeKeyword.keyword.id", target = "id")
+    @Mapping(source = "storeKeyword.keyword.name", target = "name")
+    KeywordInfo storeKeywordToKeywordInfo(StoreKeyword storeKeyword);
 
     List<StoreInfo> storeListToStoreInfoList(List<Store> stores);
 
@@ -50,17 +54,5 @@ public interface StoreMapper {
     @Named("imagesToImage")
     default String imagesToImage(String[] list) throws JsonProcessingException {
         return objectMapper.writeValueAsString(list);
-    }
-
-    default void setKeywords(List<StoreInfo> storeInfos, List<StoreKeyword> storeKeywords) {
-        storeInfos.forEach(si -> storeKeywords.forEach(sk -> {
-            if (si.getId().equals(sk.getStore().getId())) {
-                if (si.getKeywords() == null) {
-                    si.setKeywords(new ArrayList<>());
-                }
-
-                si.getKeywords().add(KeywordInfo.builder().id(sk.getKeyword().getId()).name(sk.getKeyword().getName()).build());
-            }
-        }));
     }
 }
