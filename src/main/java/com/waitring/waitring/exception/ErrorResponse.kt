@@ -1,46 +1,37 @@
-package com.waitring.waitring.exception;
+package com.waitring.waitring.exception
 
-import com.fasterxml.jackson.annotation.JsonInclude;
-import io.swagger.v3.oas.annotations.media.Schema;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.RequiredArgsConstructor;
-import org.springframework.validation.FieldError;
-
-import java.util.List;
+import com.fasterxml.jackson.annotation.JsonInclude
+import org.springframework.validation.FieldError
+import io.swagger.v3.oas.annotations.media.Schema
 
 @Schema(description = "에러 정보")
-@Getter
-@Builder
-@RequiredArgsConstructor
-public class ErrorResponse {
+class ErrorResponse(code: String, message: String?, errors: List<ValidationError>? = null) {
 
-    @Schema(description = "응답코드")
-    private final String code;
+    @field:Schema(description = "응답코드")
+    var code = code
 
-    @Schema(description = "에러메시지")
-    private final String message;
+    @field:Schema(description = "에러메시지")
+    var message = message
 
-    @JsonInclude(JsonInclude.Include.NON_EMPTY)
-    private final List<ValidationError> errors;
+    @field:JsonInclude(JsonInclude.Include.NON_EMPTY)
+    var errors = errors
 
     @Schema(description = "필드 에러 정보")
-    @Getter
-    @Builder
-    @RequiredArgsConstructor
-    public static class ValidationError {
+    class ValidationError(field: String, message: String?) {
 
-        @Schema(description = "필드명")
-        private final String field;
+        @field:Schema(description = "필드명")
+        var field = field
 
-        @Schema(description = "필드 에러메시지")
-        private final String message;
+        @field:Schema(description = "필드 에러메시지")
+        var message = message
 
-        public static ValidationError of(final FieldError fieldError) {
-            return ValidationError.builder()
-                    .field(fieldError.getField())
-                    .message(fieldError.getDefaultMessage())
-                    .build();
+        companion object {
+            fun of(fieldError: FieldError): ValidationError {
+                return ValidationError(
+                        field = fieldError.field,
+                        message = fieldError.defaultMessage
+                )
+            }
         }
     }
 }

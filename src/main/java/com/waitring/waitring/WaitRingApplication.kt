@@ -1,15 +1,15 @@
-package com.waitring.waitring;
+package com.waitring.waitring
 
-import org.springframework.boot.SpringApplication;
-import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
+import org.springframework.boot.autoconfigure.SpringBootApplication
+import org.springframework.data.jpa.repository.config.EnableJpaAuditing
+import kotlin.jvm.JvmStatic
+import org.springframework.boot.SpringApplication
+import org.springframework.boot.runApplication
 
 @SpringBootApplication
 @EnableJpaAuditing
-public class WaitRingApplication {
+class WaitRingApplication
 
-    public static void main(String[] args) {
-        SpringApplication.run(WaitRingApplication.class, args);
-    }
-
+fun main(args: Array<String>) {
+    runApplication<WaitRingApplication>(*args)
 }
