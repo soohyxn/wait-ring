@@ -10,9 +10,9 @@ import javax.validation.constraints.NotNull
 
 @Schema(description = "키워드 정보")
 data class KeywordInfo (
-    @field:Schema(description = "키워드Id")
-    private val id: Long,
+        @field:Schema(description = "키워드Id")
+        val id: Long,
 
-    @field:Schema(description = "키워드명")
-    private val name: String,
+        @field:Schema(description = "키워드명")
+        val name: String,
 )

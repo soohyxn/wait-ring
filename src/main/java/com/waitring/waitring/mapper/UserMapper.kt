@@ -1,27 +1,27 @@
-package com.waitring.waitring.mapper;
+package com.waitring.waitring.mapper
 
-import com.waitring.waitring.dto.user.UserInfo;
-import com.waitring.waitring.dto.user.UserInput;
-import com.waitring.waitring.entity.User;
-import org.mapstruct.Mapper;
-import org.mapstruct.Mapping;
-import org.mapstruct.Named;
-import org.mapstruct.factory.Mappers;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import com.waitring.waitring.dto.user.UserInput
+import com.waitring.waitring.dto.user.UserInfo
+import com.waitring.waitring.entity.User
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder
+import org.mapstruct.Mapper
+import org.mapstruct.Mapping
+import org.mapstruct.Mappings
+import org.mapstruct.Named
 
 @Mapper(componentModel = "spring")
-public interface UserMapper {
+interface UserMapper {
+    @Mappings(
+            Mapping(source = "password", target = "password", qualifiedByName = ["passwordEncode"]),
+            Mapping(target = "point", defaultValue = "0")
+    )
+    fun userInputToUser(userInput: UserInput): User
 
-    UserMapper INSTANCE = Mappers.getMapper(UserMapper.class);
+    fun userToUserInfo(user: User): UserInfo
 
-    @Mapping(source = "password", target = "password", qualifiedByName = "passwordEncode")
-    @Mapping(target = "point", defaultValue = "0")
-    User userInputToUser(UserInput userInput);
-
-    UserInfo userToUserInfo(User user);
-
-    @Named("passwordEncode")
-    default String passwordEncode(String s) {
-        return new BCryptPasswordEncoder().encode(s);
+    companion object {
+        @JvmStatic
+        @Named("passwordEncode")
+        fun passwordEncode(s: String) = BCryptPasswordEncoder().encode(s)
     }
 }

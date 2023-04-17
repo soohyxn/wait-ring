@@ -3,6 +3,7 @@ package com.waitring.waitring
 import com.waitring.waitring.entity.*
 import javax.persistence.EntityManager
 import org.springframework.context.annotation.Profile
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder
 import org.springframework.stereotype.Component
 import org.springframework.transaction.annotation.Transactional
 import javax.annotation.PostConstruct
@@ -28,13 +29,13 @@ class InitDB(private val initService: InitService) {
             /**
              * 회원 테스트 데이터
              */
-//            val user1 = User.builder()
-//                    .email("user1@waitring.com")
-//                    .password(BCryptPasswordEncoder().encode("1234"))
-//                    .nickname("유저1")
-//                    .point(1234)
-//                    .build()
-//            em.persist(user1)
+            val user1 = User(
+                    email = "user1@waitring.com",
+                    password = BCryptPasswordEncoder().encode("1234"),
+                    nickname = "유저1",
+                    point = 1234
+            )
+            em.persist(user1)
 
             /**
              * 가게 테스트 데이터

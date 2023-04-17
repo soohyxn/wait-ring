@@ -1,33 +1,18 @@
-package com.waitring.waitring.dto.user;
+package com.waitring.waitring.dto.user
 
-import io.swagger.v3.oas.annotations.media.Schema;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
-
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotNull;
+import io.swagger.v3.oas.annotations.media.Schema
 
 @Schema(description = "회원 정보")
-@Data
-@Builder
-@AllArgsConstructor
-@NoArgsConstructor
-public class UserInfo {
+data class UserInfo (
+        @field:Schema(description = "회원Id")
+        val id: Long,
 
-    @Schema(description = "회원Id")
-    @NotNull
-    private Long id;
+        @field:Schema(description = "이메일")
+        val email: String,
 
-    @Schema(description = "이메일")
-    @NotBlank
-    private String email;
+        @field:Schema(description = "닉네임")
+        val nickname: String,
 
-    @Schema(description = "닉네임")
-    @NotBlank
-    private String nickname;
-
-    @Schema(description = "포인트 점수")
-    private Integer point;
-}
+        @field:Schema(description = "포인트 점수")
+        val point: Int,
+)

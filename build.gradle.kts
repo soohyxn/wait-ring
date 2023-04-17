@@ -42,8 +42,8 @@ dependencies {
     implementation("org.springdoc:springdoc-openapi-kotlin:1.6.9")
 
     // Spring Security
-//    implementation("org.springframework.boot:spring-boot-starter-security")
-//    testImplementation("org.springframework.security:spring-security-test")
+    implementation("org.springframework.boot:spring-boot-starter-security")
+    testImplementation("org.springframework.security:spring-security-test")
 
     // Map Struct
     implementation("org.mapstruct:mapstruct:1.5.2.Final")
