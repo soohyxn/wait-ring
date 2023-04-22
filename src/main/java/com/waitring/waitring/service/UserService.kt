@@ -39,7 +39,7 @@ class UserService(private val userRepository: UserRepository, private val passwo
      * @param userLogin 입력받은 회원 정보
      */
     fun login(userLogin: UserLogin): User {
-        val user = userRepository.findByEmail(userLogin.email!!) ?: throw IllegalStateException("해당 이메일을 사용하는 회원이 없습니다.")
+        val user = userRepository.findByEmail(userLogin.email ?: "") ?: throw IllegalStateException("해당 이메일을 사용하는 회원이 없습니다.")
         check(passwordEncoder.matches(userLogin.password, user.password)) { "비밀번호가 일치하지 않습니다." }
         log.info("login: $user")
         return user

@@ -9,11 +9,16 @@ import javax.persistence.Id
  * 키워드 엔티티
  */
 @Entity
-class Keyword(name :String?) : BaseEntity() {
+class Keyword(name: String) : BaseEntity() {
     @Id
     @GeneratedValue
-    private val id: Long? = null
+    val id: Long? = null
 
-    @Column(unique = true)
-    private val name = name // 키워드명
+    @Column(nullable = false, unique = true)
+    var name = name // 키워드명
+        protected set
+
+    override fun toString(): String {
+        return "Keyword(id=$id, name=$name)"
+    }
 }
