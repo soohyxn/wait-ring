@@ -24,8 +24,8 @@ class KeywordService(private val keywordRepository: KeywordRepository) {
      */
     fun addKeyword(keywordInput: KeywordInput): Keyword {
         val keyword = mapper.keywordInputToKeyword(keywordInput)
-        val saveKeyword = keywordRepository.save(keyword)
-        log.info("saveKeyword: $saveKeyword")
-        return saveKeyword
+        val addKeyword = keywordRepository.save(keyword)
+        log.info("addKeyword: $addKeyword")
+        return addKeyword
     }
 }
