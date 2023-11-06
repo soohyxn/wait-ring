@@ -1,4 +1,4 @@
-package com.waitring.waitring.config
+package com.waitring.waitring.common.config
 
 import javax.persistence.EntityManager
 import com.querydsl.jpa.impl.JPAQueryFactory
